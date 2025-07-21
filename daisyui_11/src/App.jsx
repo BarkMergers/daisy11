@@ -1,7 +1,12 @@
 import './App.css'
+import NavBar from './navbar/NavBar'
+
 function App() {
     return (
         <>
+            <NavBar title="Test"></NavBar>
+
+
             <div className="m-2" data-theme="dark">
                 <button class="btn btn-primary">Dark Themed Button</button>
             </div>
