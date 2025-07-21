@@ -4,7 +4,7 @@ import NavBar from './navbar/NavBar'
 function App() {
     return (
         <>
-            <NavBar title="Test"></NavBar>
+            <NavBar title="MyTest"></NavBar>
 
 
             <div className="m-2" data-theme="dark">
