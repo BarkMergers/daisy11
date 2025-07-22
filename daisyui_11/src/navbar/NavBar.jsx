@@ -3,7 +3,11 @@ import keyIcon from '/key.png'
 import bellIcon from '/bell.png'
 import './NavBar.css';
 
-function NavBar({ title }) {
+function NavBar({ title, accounts, handleLogout, handleLogin }) {
+
+
+
+
 
 
 
@@ -179,9 +183,29 @@ function NavBar({ title }) {
                     {endMenuWide()}
                 </ul>
 
+
                 <div>
-                    <div><a>newworld/agent001</a></div>
-                    <div><a>Log out</a></div>
+
+
+                    {accounts.length > 0 ? (
+                        <>
+
+                            <div><a>{accounts[0].username}</a></div>
+                            <div style={{ "cursor": "pointer" } } ><a onClick={handleLogout}>Log out</a></div>
+
+                 
+
+                        </>
+                    ) : (
+
+                            <div><a onClick={handleLogin}>Log in</a></div>
+
+                    )}
+
+
+
+
+
                 </div>
             </div>
         </div>    

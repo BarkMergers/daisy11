@@ -3,13 +3,33 @@ import NavBar from './navbar/NavBar'
 import Rating from './rating/Rating'
 import { useState } from 'react'
 
+import React from 'react';
+import { useMsal } from '@azure/msal-react';
+import { loginRequest } from './authConfig';
+
+
 function App() {
+
+    const { instance, accounts } = useMsal();
+
+    const handleLogin = () => {
+        instance.loginPopup(loginRequest).catch(e => {
+            console.error(e);
+        });
+    };
+
+    const handleLogout = () => {
+        instance.logoutPopup();
+    };
+
+
+
 
     const [value, setValue] = useState(4);
 
     return (
         <>
-            <NavBar title="MyTest"></NavBar>
+            <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout} ></NavBar>
 
             <div className="m-2" data-theme="dark">
                 <button class="btn btn-primary">Dark Themed Button</button>
