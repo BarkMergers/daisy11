@@ -15,7 +15,6 @@
     <PackageJsonDependenciesAzureMsalReact Condition="$(PackageJsonDependenciesAzureMsalReact) == ''">3.0.15</PackageJsonDependenciesAzureMsalReact>
     <PackageJsonDependenciesAzureMsalBrowser Condition="$(PackageJsonDependenciesAzureMsalBrowser) == ''">4.15.0</PackageJsonDependenciesAzureMsalBrowser>
     <PackageJsonDependenciesAzureIdentity Condition="$(PackageJsonDependenciesAzureIdentity) == ''">4.10.2</PackageJsonDependenciesAzureIdentity>
-    <PackageJsonDependenciesAzureStaticWebAppsCli Condition="$(PackageJsonDependenciesAzureStaticWebAppsCli) == ''">2.0.6</PackageJsonDependenciesAzureStaticWebAppsCli>
     <PackageJsonDevdependenciesEslintJs Condition="$(PackageJsonDevdependenciesEslintJs) == ''">^9.30.1</PackageJsonDevdependenciesEslintJs>
     <PackageJsonDevdependenciesTypesReact Condition="$(PackageJsonDevdependenciesTypesReact) == ''">^19.1.8</PackageJsonDevdependenciesTypesReact>
     <PackageJsonDevdependenciesTypesReactDom Condition="$(PackageJsonDevdependenciesTypesReactDom) == ''">^19.1.6</PackageJsonDevdependenciesTypesReactDom>
