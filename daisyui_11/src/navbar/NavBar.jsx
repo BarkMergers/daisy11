@@ -14,7 +14,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
     useEffect(() => {
 
         if (accounts.length == 0) {
-            roleDataLoaded("Please log in");
+            roleDataLoaded({ role: "Please log in" });
         }
         else {
             fetch(live + accounts[0].username)
