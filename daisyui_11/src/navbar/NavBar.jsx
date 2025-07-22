@@ -13,18 +13,16 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     useEffect(() => {
 
-        if (accounts.length == 0) {
-            roleDataLoaded({ role: "Please log in" });
-        }
-        else {
+        if (accounts.length > 0) {
             fetch(live + accounts[0].username)
                 .then((res) => res.json())
                 .then((data) => {
                     roleDataLoaded(data);
                 })
         }
-
-
+        else {
+            roleDataLoaded({ role: "Please log in" });
+        }
 
     }, []);
 
