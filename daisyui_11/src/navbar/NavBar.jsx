@@ -1,4 +1,4 @@
-﻿import React, { useRef } from 'react'
+﻿import React, { useRef, useEffect, useState } from 'react'
 import keyIcon from '/key.png'
 import bellIcon from '/bell.png'
 import './NavBar.css';
@@ -6,7 +6,22 @@ import './NavBar.css';
 function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
 
+    const [role, setRole] = useState("none");
 
+    const local = "http://localhost:7039/api/GetRole/Mark.Burgess@Jaama.co.uk";
+    const live = "https://daisy11functions20250722145544.azurewebsites.net/Mark.Burgess@Jaama.co.uk"
+
+    useEffect(() => {
+        fetch(live)
+            .then((res) => res.json())
+            .then((data) => {
+                roleDataLoaded(data);
+            })
+    }, []);
+
+    const roleDataLoaded = (data) => {
+        setRole(data.role);
+    }
 
 
 
@@ -80,15 +95,15 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                     {endMenuWide()}
                 </ul >
                 {
-                    mainMenu.map((item) => {
+                    mainMenu.map((item, i) => {
                         if (typeof item.list === "undefined")
-                            return <li>
+                            return <li key={i}>
                                 <a onClick={() => clicker(item.onClick)}>{item.name}</a>
                             </li>
 
-                        return <li>
+                        return <li key={i}>
                             <a>{item.name}</a>
-                            <ul class="p-2">
+                            <ul className="p-2">
 
                                 {item.list.map((subItem) => <li> {
                                     subItem.name == "-" ?
@@ -106,7 +121,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
 
     const makeSubMenuItem = (subItem) => {
-        return (<> <li>
+        return (<> <li key={ Math.random() }>
             {subItem.name == "-" ?
                 <div className="divider"></div> :
                 <a onClick={() => clicker(subItem.onClick)}>{subItem.name}</a>}
@@ -124,7 +139,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                 return <li>
                     <details>
                         <summary onClick={(event) => menuFocus(event.target)}><a>{item.name}</a></summary>
-                        <ul tabIndex={0} onBlur={closeMenus} class="p-2">
+                        <ul tabIndex={0} onBlur={closeMenus} className="p-2">
                             { item.list.map(makeSubMenuItem) }
                         </ul>
                     </details></li>
@@ -134,12 +149,12 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const endMenuWide = function () {
         return (
-            endMenu.map((item) => {
+            endMenu.map((item, i) => {
 
-                return <li>
+                return <li key={i}>
                     <details>
                         <summary onClick={(event) => menuFocus(event.target)} className="side-icon-summary"><img className="side-icon" src={getIcon(item.icon)}></img></summary>
-                        <ul tabIndex={0} onBlur={closeMenus} class="p-2">
+                        <ul tabIndex={0} onBlur={closeMenus} className="p-2">
                             { item.list.map(makeSubMenuItem) }
                         </ul>
                     </details></li>
@@ -156,35 +171,35 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     return (
     
-        <div ref={containerRef} class="navbar bg-base-100 shadow-sm pl-[0px]">
+        <div ref={containerRef} className="navbar bg-base-100 pl-[0px] shadow-sm">
 
-            <div class="navbar-start">
-                <div class="dropdown">
-                    <div tabindex="0" role="button" class="hamburger btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+            <div className="navbar-start">
+                <div className="dropdown">
+                    <div tabIndex="0" role="button" className="hamburger btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
                     </div>
                     <ul
-                        tabindex="0"
-                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        tabIndex="0"
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                         { menuNarrow() }
                     </ul>
                 </div>
-                <a class="navbar-title btn-ghost text-xl">{title}</a>
+                <a className="navbar-title btn-ghost text-xl">{title}</a>
             </div>
 
-            <div class="navbar-center hidden lg:flex">
-                <ul class="menu menu-horizontal px-1">
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal px-1">
                     {menuWide()}
                 </ul>
             </div>
 
-            <div class="navbar-end">
-                <ul class="hidden sm:inline-flex menu menu-horizontal px-1">
+            <div className="navbar-end">
+                <ul className="menu menu-horizontal hidden px-1 sm:inline-flex">
                     {endMenuWide()}
                 </ul>
 
 
-                <div>
+                <div title={role}>
 
 
                     {accounts.length > 0 ? (

@@ -32,10 +32,10 @@ function App() {
             <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout} ></NavBar>
 
             <div className="m-2" data-theme="dark">
-                <button class="btn btn-primary">Dark Themed Button</button>
+                <button className="btn btn-primary">Dark Themed Button</button>
             </div>
             <div className="m-2" data-theme="light">
-                <button class="btn btn-primary">Light Themed Button</button>
+                <button className="btn btn-primary">Light Themed Button</button>
             </div>
 
             <Rating stars={7} value={value} onChange={(v) => setValue(v) } ></Rating>
