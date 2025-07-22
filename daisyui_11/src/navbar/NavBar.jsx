@@ -15,9 +15,6 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
         if (accounts.length > 0) {
 
-            alert(live + accounts[0].username);
-
-
             fetch(live + accounts[0].username)
                 .then((res) => res.json())
                 .then((data) => {
