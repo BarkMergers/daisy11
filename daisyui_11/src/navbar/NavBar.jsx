@@ -9,14 +9,23 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
     const [role, setRole] = useState("none");
 
     const local = "http://localhost:7039/api/GetRole/Mark.Burgess@Jaama.co.uk";
-    const live = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/Mark.Burgess@Jaama.co.uk"
+    const live = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
 
     useEffect(() => {
-        fetch(live)
-            .then((res) => res.json())
-            .then((data) => {
-                roleDataLoaded(data);
-            })
+
+        if (accounts.length == 0) {
+            roleDataLoaded("Please log in");
+        }
+        else {
+            fetch(live + accounts[0].username)
+                .then((res) => res.json())
+                .then((data) => {
+                    roleDataLoaded(data);
+                })
+        }
+
+
+
     }, []);
 
     const roleDataLoaded = (data) => {
