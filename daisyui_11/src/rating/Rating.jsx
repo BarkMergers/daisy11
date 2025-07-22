@@ -1,5 +1,4 @@
-import React from 'React';
-import './Rating.css';
+//import React from 'React';
 
 function Rating({value, onChange, stars}) {
 
