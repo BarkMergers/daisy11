@@ -3,12 +3,17 @@ import keyIcon from '/key.png'
 import bellIcon from '/bell.png'
 import './NavBar.css';
 
+import { useContext } from "react";
+import { UserContext } from '../App'
+
 function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
-
+    const globalData = useContext(UserContext);
     const [role, setRole] = useState("none");
-
     const live = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
+
+
+
 
     useEffect(() => {
 
@@ -67,7 +72,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
         {
             "icon": "bell", secure: true, "list": [
                 { name: "Alerts", onClick: () => alert('You have no alerts') },
-                { name: "Emails", onClick: () => alert('You have no emails') }
+                { name: "Emails", onClick: () => { globalData.SetSpinnerVisible(true) } }
             ]
         }
     ]

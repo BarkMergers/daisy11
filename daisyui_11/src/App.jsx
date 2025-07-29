@@ -1,16 +1,19 @@
-import './App.css'
-import NavBar from './navbar/NavBar'
-import Rating from './rating/Rating'
-
+import './App.css';
+import NavBar from './navbar/NavBar';
+import Rating from './rating/Rating';
+import { useState } from 'react';
 import React from 'react';
 import { useMsal } from '@azure/msal-react';
 import { loginRequest } from './authConfig';
-
 import Modal from './modal/Modal'
 import Accounts from './screens/Accounts';
 import Dashboard from './screens/Dashboard';
 import Home from './screens/Home';
 import NotFound from './screens/NotFound';
+import SpinnerLoader from './spinnerLoader/SpinnerLoader';
+
+import { createContext } from "react";
+export const UserContext = createContext();
 
 import {
     BrowserRouter,
@@ -34,28 +37,39 @@ function App() {
         instance.logoutPopup();
     };
 
+    const enableSpinner = function (value) {
+        value ? document.getElementById('eventProcessingIcon').showModal() : document.getElementById('eventProcessingIcon').close();
+        if (value) {
 
+            setTimeout(() => {
+                enableSpinner(false);
+            }, 5000);
+        }
+    }
 
-
+    const [globalData] = useState({ "AccountType": "Advanced Acount", SetSpinnerVisible: enableSpinner });
 
     return (
         <>
-            <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
+            <UserContext.Provider value={globalData}>
 
-            <Modal id="my_permissions" title="Permissions">
-                You do not currently have any permissions
-            </Modal>
+                <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
 
+                <SpinnerLoader></SpinnerLoader>
 
+                <Modal id="my_permissions" title="Permissions">
+                    You do not currently have any permissions
+                </Modal>
 
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/dashboard" element={<Dashboard />}></Route>
-                    <Route path="/accounts" element={<Accounts />}></Route>
-                    <Route path="/" element={<Home accounts={accounts} />}></Route>
-                    <Route path="*" element={<NotFound />}></Route>
-                </Routes>
-            </BrowserRouter>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/dashboard" element={<Dashboard />}></Route>
+                        <Route path="/accounts" element={<Accounts />}></Route>
+                        <Route path="/" element={<Home accounts={accounts} />}></Route>
+                        <Route path="*" element={<NotFound />}></Route>
+                    </Routes>
+                </BrowserRouter>
+            </UserContext.Provider>
 
         </>
     )
