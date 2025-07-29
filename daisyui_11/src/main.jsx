@@ -8,11 +8,18 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
 import { msalConfig } from './authConfig';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+
+const queryClient = new QueryClient;
 const msalInstance = new PublicClientApplication(msalConfig);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <MsalProvider instance={msalInstance}>
-        <App />
-    </MsalProvider>
+
+    <QueryClientProvider client={queryClient}>
+        <MsalProvider instance={msalInstance}>
+            <App />
+        </MsalProvider>
+    </QueryClientProvider>
 );

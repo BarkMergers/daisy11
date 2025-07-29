@@ -12,6 +12,7 @@
     <PackageJsonDependenciesAzureIdentity Condition="$(PackageJsonDependenciesAzureIdentity) == ''">4.10.2</PackageJsonDependenciesAzureIdentity>
     <PackageJsonDependenciesAzureMsalBrowser Condition="$(PackageJsonDependenciesAzureMsalBrowser) == ''">4.15.0</PackageJsonDependenciesAzureMsalBrowser>
     <PackageJsonDependenciesAzureMsalReact Condition="$(PackageJsonDependenciesAzureMsalReact) == ''">3.0.15</PackageJsonDependenciesAzureMsalReact>
+    <PackageJsonDependenciesTanstackReactQuery Condition="$(PackageJsonDependenciesTanstackReactQuery) == ''">^5.83.0</PackageJsonDependenciesTanstackReactQuery>
     <PackageJsonDependenciesDaisyui Condition="$(PackageJsonDependenciesDaisyui) == ''">^3.9.4</PackageJsonDependenciesDaisyui>
     <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^19.1.0</PackageJsonDependenciesReact>
     <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^19.1.0</PackageJsonDependenciesReactDom>
