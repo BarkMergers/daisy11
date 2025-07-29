@@ -1,0 +1,10 @@
+
+.panelBorderOuter {
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.panelBorder {
+    padding: 10px;
+    border: 1px solid silver;
+}
