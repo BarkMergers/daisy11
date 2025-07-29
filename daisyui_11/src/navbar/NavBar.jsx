@@ -59,7 +59,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
     const endMenu = [
         {
             "icon": "key", secure: true, "list": [
-                { name: "Permissions", onClick: () => alert('No permission keys') },
+                { name: "Permissions", onClick: () => document.getElementById('my_permissions').showModal() },
                 { name: "-" },
                 { name: "Structure", onClick: () => alert('No structure keys') }
             ]
@@ -71,9 +71,6 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
             ]
         }
     ]
-
-
-
 
 
 
