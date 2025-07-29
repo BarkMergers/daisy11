@@ -7,6 +7,19 @@ import { useMsal } from '@azure/msal-react';
 import { loginRequest } from './authConfig';
 
 
+import Accounts from './screens/Accounts';
+import Dashboard from './screens/Dashboard';
+import Home from './screens/Home';
+
+//npm i react-router-dom
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Link,
+} from "react-router-dom";
+
+
 function App() {
 
     const { instance, accounts } = useMsal();
@@ -29,35 +42,14 @@ function App() {
             <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
 
 
-            {accounts.length == 0 ?
-                
-                <>
-                    Welcome to the testbed - Please log in with your corporate email (It should already exist in Azure Entra!)
-                </>
 
-                :
-
-                <>
-
-                    <div>
-                        You are now logged in! Hover over your username to see your role. New features will be added here shortly.
-                    </div>
-
-                    <div style={{ "paddingTop": "20px"  } }>
-                        <div>Rate it!</div>
-                        <Rating stars={5}></Rating>
-                    </div>
-
-
-
-                </>
-
-
-            }
-
-
-
-
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/dashboard" element={<Dashboard />}></Route>
+                    <Route path="/accounts" element={<Accounts />}></Route>
+                    <Route path="/" element={<Home accounts={accounts} />}></Route>
+                </Routes>
+            </BrowserRouter>
 
         </>
     )

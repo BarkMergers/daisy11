@@ -39,38 +39,48 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
 
     const mainMenu = [
-        { "name": "Asset", onClick: () => alert('Asset') },
+        { "name": "Dashboard", href: "/dashboard", secure: false },
         {
-            "name": "Order", list: [
-                { name: "Submit", onClick: () => alert('This has been submitted') },
+            "name": "Order", secure: true, list: [
+                { name: "Accounts", onClick: () => document.location.href='/Accounts' },
                 { name: "-" },
                 { name: "Reject", onClick: () => alert('This has been rejected') }
             ]
         },
         {
-            "name": "Claims", list: [
+            "name": "Claims", secure: true, list: [
                 { name: "Submit", onClick: () => alert('Claim submitted') },
                 { name: "Reject", onClick: () => alert('Claim rejected') }
             ]
         },
-        { "name": "Admin", onClick: () => alert('Admin') },
+        { "name": "Admin", secure: true, onClick: () => alert('Admin') },
     ]
 
     const endMenu = [
         {
-            "icon": "key", "list": [
+            "icon": "key", secure: true, "list": [
                 { name: "Permissions", onClick: () => alert('No permission keys') },
                 { name: "-" },
                 { name: "Structure", onClick: () => alert('No structure keys') }
             ]
         },
         {
-            "icon": "bell", "list": [
+            "icon": "bell", secure: true, "list": [
                 { name: "Alerts", onClick: () => alert('You have no alerts') },
                 { name: "Emails", onClick: () => alert('You have no emails') }
             ]
         }
     ]
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -107,21 +117,24 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                 </ul >
                 {
                     mainMenu.map((item, i) => {
+
+                        if (item.secure && accounts.length == 0) return <></>
+
+
+
                         if (typeof item.list === "undefined")
                             return <li key={i}>
-                                <a onClick={() => clicker(item.onClick)}>{item.name}</a>
+
+                                {item.href === null ? <a onClick={() => clicker(item.onClick)}>{item.name}</a> : <a href={item.href}>{item.name}</a> }
+
                             </li>
 
                         return <li key={i}>
                             <a>{item.name}</a>
                             <ul className="p-2">
 
-                                {item.list.map((subItem) => <li> {
-                                    subItem.name == "-" ?
-                                        <div className="divider"></div> :
-                                        <a onClick={() => clicker(subItem.onClick)}>{subItem.name}</a>}
-                                </li>)
-                                }
+                                {item.list.map(makeSubMenuItem)}
+                                
 
                             </ul></li>
                     })
@@ -135,23 +148,45 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
         return (<> <li key={ Math.random() }>
             {subItem.name == "-" ?
                 <div className="divider"></div> :
-                <a onClick={() => clicker(subItem.onClick)}>{subItem.name}</a>}
+                        (typeof subItem.onClick === "function" ?
+                        <a onClick={() => clicker(subItem.onClick)}>{subItem.name}</a>
+                        :
+                    <a href={subItem.href}>{subItem.href}: {subItem.name}</a>)
+                    }
         </li></>)
     }
 
     const menuWide = function () {
         return (
             mainMenu.map((item) => {
+
+                if (item.secure && accounts.length == 0) return <></>
+
+
+
                 if (typeof item.list === "undefined")
                     return <li>
-                        <a onClick={() => clicker(item.onClick)}>{item.name}</a>
+                  
+
+                        {item.href === null ?
+                            <a onClick={() => clicker(item.onClick)}>{item.name}</a>
+                            :
+                            <a href={item.href}>{item.name}</a>
+                        }
+
+
                     </li>
 
                 return <li>
                     <details>
                         <summary onClick={(event) => menuFocus(event.target)}><a>{item.name}</a></summary>
                         <ul tabIndex={0} onBlur={closeMenus} className="p-2">
-                            { item.list.map(makeSubMenuItem) }
+                 
+
+                            {item.list.map(makeSubMenuItem)}
+
+
+
                         </ul>
                     </details></li>
             })
@@ -195,7 +230,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                         { menuNarrow() }
                     </ul>
                 </div>
-                <a className="navbar-title btn-ghost text-xl">{title}</a>
+                <a className="navbar-title btn-ghost text-xl" href="/">{title}</a>
             </div>
 
             <div className="navbar-center hidden lg:flex">
@@ -209,28 +244,17 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                     {endMenuWide()}
                 </ul>
 
-
                 <div title={role}>
-
 
                     {accounts.length > 0 ? (
                         <>
 
                             <div><a>{accounts[0].username}</a></div>
                             <div style={{ "cursor": "pointer" } } ><a onClick={handleLogout}>Log out</a></div>
-
-                 
-
                         </>
                     ) : (
-
                             <div><a onClick={handleLogin}>Log in</a></div>
-
                     )}
-
-
-
-
 
                 </div>
             </div>
