@@ -50,7 +50,7 @@ function App() {
 
             <BrowserRouter>
                 <Routes>
-                    <Route path="/dashboard" element={<Accounts />}></Route>
+                    <Route path="/dashboard" element={<Dashboard />}></Route>
                     <Route path="/accounts" element={<Accounts />}></Route>
                     <Route path="/" element={<Home accounts={accounts} />}></Route>
                     <Route path="*" element={<NotFound />}></Route>
