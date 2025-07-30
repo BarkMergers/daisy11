@@ -13,16 +13,10 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
     const live = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
 
 
-
-
     useEffect(() => {
 
         if (accounts.length > 0) {
-
-
             roleDataLoaded({ role: "Loading role..." });
-            //alert(live + accounts[0].username);
-
             fetch(live + accounts[0].username)
                 .then((res) => res.json())
                 .then((data) => {
@@ -58,7 +52,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                 { name: "Reject", onClick: () => alert('Claim rejected') }
             ]
         },
-        { "name": "Admin", secure: true, onClick: () => alert('Admin') },
+        { "name": "Admin", secure: true, href: "/admin" },
     ]
 
     const endMenu = [

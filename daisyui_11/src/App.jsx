@@ -8,6 +8,7 @@ import { loginRequest } from './authConfig';
 import Modal from './modal/Modal'
 import Accounts from './screens/Accounts';
 import Dashboard from './screens/Dashboard';
+import Admin from './screens/Admin';
 import Home from './screens/Home';
 import NotFound from './screens/NotFound';
 import SpinnerLoader from './spinnerLoader/SpinnerLoader';
@@ -61,6 +62,7 @@ function App() {
                         <Routes>
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/accounts" element={<Accounts />}></Route>
+                            <Route path="/admin" element={<Admin />}></Route>
                             <Route path="/" element={<Home accounts={accounts} />}></Route>
                             <Route path="*" element={<NotFound />}></Route>
                         </Routes>

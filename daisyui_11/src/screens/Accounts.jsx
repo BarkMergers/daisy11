@@ -33,6 +33,8 @@ export default function Accounts() {
         //const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/5`;
         const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/5`;
 
+
+        
         const response = await fetch(url);
         const data = await response.json();
 
