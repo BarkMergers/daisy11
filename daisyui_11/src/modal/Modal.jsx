@@ -23,8 +23,8 @@ export default function Modal({ id, title, children, visible, onClose }) {
 
     return (
         <dialog ref={modalRef} id={id} className="modal" onCancel={handleESC}>
-            <form method="dialog" className="modal-box">
-                <h3 className="text-lg font-bold">{title}</h3>
+            <form method="dialog" className="modal-box text-center">
+                <h3 className="text-center text-lg font-bold">{title}</h3>
                 {children}
                 <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
                     <button className="btn" onClick={handleClose}>Close</button>

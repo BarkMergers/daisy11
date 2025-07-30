@@ -1,0 +1,32 @@
+
+
+
+.accounts-table
+{
+    width:100%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+    .accounts-table thead tr {
+        background-color: #2c37f52b;
+    }
+
+
+    .accounts-table tbody tr:nth-child(even) {
+        background-color: #2a2a2a;
+    }
+
+    .accounts-table tbody tr:nth-child(odd) {
+        background-color: #fff1;
+    }
+
+
+    .accounts-table tbody tr {
+        transition: 0.2s;
+    }
+
+        .accounts-table tbody tr:hover {
+            background-color: #89878799;
+        }

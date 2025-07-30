@@ -56,7 +56,7 @@ function App() {
                 <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
 
 
-                <div style={{ flexGrow: "1", overflow: "auto"  } }>
+                <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
                     <BrowserRouter>
                         <Routes>
                             <Route path="/dashboard" element={<Dashboard />}></Route>
