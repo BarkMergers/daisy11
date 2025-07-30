@@ -1,6 +1,6 @@
 
 
-export default function Input({ title, placeholder, type }) {
+export default function Input({ value, title, placeholder, type, onChange }) {
 
     var inlineStyle = {};
 
@@ -19,10 +19,9 @@ export default function Input({ title, placeholder, type }) {
     return (
     
         <>
-
             <fieldset className="fieldset">
                 <legend className="fieldset-legend">{title}</legend>
-                <input type={type} className="input" placeholder={placeholder} style={ inlineStyle } />
+                <input type={type} value={value} checked={value} className="input" placeholder={placeholder} onChange={onChange} style={ inlineStyle } />
             </fieldset>
 
         </>

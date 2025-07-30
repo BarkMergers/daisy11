@@ -38,13 +38,29 @@ function App() {
         instance.logoutPopup();
     };
 
+    var eventProcessingIconTimeout = null;
+
     const enableSpinner = function (value) {
-        value ? document.getElementById('eventProcessingIcon').showModal() : document.getElementById('eventProcessingIcon').close();
+
+        if (!value) {
+            document.getElementById('eventProcessingIcon').close()
+            if (eventProcessingIconTimeout != null) {
+                clearTimeout(eventProcessingIconTimeout);
+                eventProcessingIconTimeout = null;
+            }
+        }
+
         if (value) {
 
+            eventProcessingIconTimeout = setTimeout(() => {
+                document.getElementById('eventProcessingIcon').showModal();
+            }, 333);
+        }
+
+        if (value) {
             setTimeout(() => {
                 enableSpinner(false);
-            }, 5000);
+            }, 30000);
         }
     }
 
@@ -56,26 +72,23 @@ function App() {
 
                 <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
 
-
                 <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
                     <BrowserRouter>
                         <Routes>
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/accounts" element={<Accounts />}></Route>
-                            <Route path="/admin" element={<Admin />}></Route>
+                            <Route path="/admin" element={<Admin accounts={accounts} />}></Route>
                             <Route path="/" element={<Home accounts={accounts} />}></Route>
                             <Route path="*" element={<NotFound />}></Route>
                         </Routes>
                     </BrowserRouter>
                 </div>
 
-
                 <SpinnerLoader></SpinnerLoader>
 
                 <Modal id="my_permissions" title="Permissions">
                     You do not currently have any permissions
                 </Modal>
-
 
             </UserContext.Provider>
         </>

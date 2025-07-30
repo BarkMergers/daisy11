@@ -3,44 +3,38 @@ import Modal from './../modal/Modal'
 import { useQuery } from "@tanstack/react-query";
 import Pagination from './../pagination/Pagination';
 import './Accounts.css';
-
+import { useContext } from "react";
+import { UserContext } from '../App'
 
 export default function Accounts() {
 
     const [data, setData] = useState([]);
-
-
-
     const [pageIndex, setPageIndex] = useState(0);
     const [pagination, setPagination] = useState(0);
     const [message, setMessage] = useState("");
-
+    const globalData = useContext(UserContext);
 
      useQuery({
         queryKey: ['customers', pageIndex],
         queryFn: () => getCustomer(pageIndex)
     });
 
-
-
-
-
     const getCustomer = async (newPageIndex) => {
+        globalData.SetSpinnerVisible(true);
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         newPageIndex = newPageIndex || 0;
 
         //const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/5`;
         const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/5`;
-
-
-        
         const response = await fetch(url);
         const data = await response.json();
 
         setPagination(data.pagination);
         setPageIndex(newPageIndex);
         setData(data.data);
+
+        globalData.SetSpinnerVisible(false);
 
         return response.json;
     }

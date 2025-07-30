@@ -10,18 +10,25 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const globalData = useContext(UserContext);
     const [role, setRole] = useState("none");
-    const live = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
+    const url = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
 
 
     useEffect(() => {
 
         if (accounts.length > 0) {
             roleDataLoaded({ role: "Loading role..." });
-            fetch(live + accounts[0].username)
-                .then((res) => res.json())
-                .then((data) => {
-                    roleDataLoaded(data);
-                })
+
+            try {
+
+                fetch(url + accounts[0].username)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        roleDataLoaded(data);
+                    })
+                    .catch()
+
+            }
+            catch (ex) { console.log(ex); }
         }
         else {
             roleDataLoaded({ role: "Please log in" });
@@ -128,10 +135,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                         return <li key={i}>
                             <a>{item.name}</a>
                             <ul className="p-2">
-
                                 {item.list.map(makeSubMenuItem)}
-                                
-
                             </ul></li>
                     })
                 }
@@ -154,14 +158,14 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const menuWide = function () {
         return (
-            mainMenu.map((item) => {
+            mainMenu.map((item, i) => {
 
                 if (item.secure && accounts.length == 0) return <></>
 
 
 
                 if (typeof item.list === "undefined")
-                    return <li>
+                    return <li key={i}>
                   
 
                         {item.href === null ?
@@ -173,7 +177,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
                     </li>
 
-                return <li>
+                return <li key={i}>
                     <details>
                         <summary onClick={(event) => menuFocus(event.target)}><a>{item.name}</a></summary>
                         <ul tabIndex={0} onBlur={closeMenus} className="p-2">
@@ -240,16 +244,16 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                     {endMenuWide()}
                 </ul>
 
-                <div title={role}>
+                <div title={role} className="text-center" >
 
                     {accounts.length > 0 ? (
                         <>
 
                             <div><a>{accounts[0].username}</a></div>
-                            <div style={{ "cursor": "pointer" } } ><a onClick={handleLogout}>Log out</a></div>
+                            <div style={{"cursor":"pointer"}}><a onClick={handleLogout}>Log out</a></div>
                         </>
                     ) : (
-                            <div><a onClick={handleLogin}>Log in</a></div>
+                            <div style={{ "cursor": "pointer" }}><a onClick={handleLogin}>Log in</a></div>
                     )}
 
                 </div>
