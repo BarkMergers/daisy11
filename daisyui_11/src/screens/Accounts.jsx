@@ -26,7 +26,7 @@ export default function Accounts() {
 
     const getCustomer = async () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const response = await fetch("http://localhost:7039/api/GetCustomer");
+        const response = await fetch("https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer");
         setData(await response.json());
         return response.json;
     }
