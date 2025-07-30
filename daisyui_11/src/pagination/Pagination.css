@@ -1,0 +1,15 @@
+.paginationButton
+ {
+    border: 1px solid silver;
+    padding: 2px 8px;
+    margin: 5px;
+    background: linear-gradient(#1a1a1aff, #0008);
+    display: inline-block;
+    transition: 0.3s;
+    cursor: pointer;
+    background-color: silver;
+}
+
+.paginationButton:hover {
+    background-color: white;
+}

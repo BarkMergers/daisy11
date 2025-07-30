@@ -1,56 +1,77 @@
-
-
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import Modal from './../modal/Modal'
-
 import { useQuery } from "@tanstack/react-query";
-
+import Pagination from './../pagination/Pagination';
 
 export default function Accounts() {
 
     const [data, setData] = useState([]);
 
-    var { customerdata, isPending, refetch } = useQuery({
-        queryKey: ['customers'],
-        queryFn: () => { getCustomer() }
+
+
+    const [pageIndex, setPageIndex] = useState(0);
+    const [pagination, setPagination] = useState(0);
+  
+
+     useQuery({
+        queryKey: ['customers', pageIndex],
+        queryFn: () => getCustomer(pageIndex)
     });
 
-    //// Load from server
-    //useEffect(() => {
-    //    fetch("http://localhost:7039/api/GetCustomer")
-    //        .then((res) => res.json())
-    //        .then((data) => {
-    //            setData(data);
-    //        })
-    //}, []);
 
-    const getCustomer = async () => {
+
+
+
+    const getCustomer = async (newPageIndex) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        const response = await fetch("https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer");
-        setData(await response.json());
+
+        newPageIndex = newPageIndex || 0;
+
+        const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/5`;
+
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        setPagination(data.pagination);
+        setPageIndex(newPageIndex);
+        setData(data.data);
+
         return response.json;
     }
 
 
-
+    const updatePage = (pageIndex) => {
+        setPageIndex(pageIndex * 5);
+    }
 
 
     return (
         <>
-            <div onClick={() => refetch }>
+
+            <div>
                 Here are your accounts
             </div>
 
             <table>
                 {
-                    data.map((x) => <tr>
+                    data != null && data.map((x) => <tr>
+                        <td>{x.id}</td>
                         <td>{x.firstname}</td>
                         <td>{x.lastname}</td>
                         <td>{x.age}</td>
                         <td>{x.active ? "Yes" : "No"}</td>
                     </tr>)
                 }
-                </table>
+            </table>
+
+
+            <div>
+                <Pagination data={pagination} updatePage={ updatePage }></Pagination>
+            </div>
+
+
+
 
             <div>
                 <button className="btn" onClick={() => document.getElementById('my_modal_1').showModal()}>Random Account</button>

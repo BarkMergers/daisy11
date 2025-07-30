@@ -55,20 +55,26 @@ function App() {
 
                 <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
 
+
+                <div style={{ flexGrow: "1", overflow: "auto"  } }>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/dashboard" element={<Dashboard />}></Route>
+                            <Route path="/accounts" element={<Accounts />}></Route>
+                            <Route path="/" element={<Home accounts={accounts} />}></Route>
+                            <Route path="*" element={<NotFound />}></Route>
+                        </Routes>
+                    </BrowserRouter>
+                </div>
+
+
                 <SpinnerLoader></SpinnerLoader>
 
                 <Modal id="my_permissions" title="Permissions">
                     You do not currently have any permissions
                 </Modal>
 
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/dashboard" element={<Dashboard />}></Route>
-                        <Route path="/accounts" element={<Accounts />}></Route>
-                        <Route path="/" element={<Home accounts={accounts} />}></Route>
-                        <Route path="*" element={<NotFound />}></Route>
-                    </Routes>
-                </BrowserRouter>
+
             </UserContext.Provider>
         </>
     )
