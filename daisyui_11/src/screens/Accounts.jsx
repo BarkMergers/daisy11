@@ -13,6 +13,8 @@ export default function Accounts() {
     const [pagination, setPagination] = useState(0);
     const [message, setMessage] = useState("");
     const globalData = useContext(UserContext);
+    const pageSize = 3;
+
 
      useQuery({
         queryKey: ['customers', pageIndex],
@@ -25,8 +27,8 @@ export default function Accounts() {
 
         newPageIndex = newPageIndex || 0;
 
-        //const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/5`;
-        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/5`;
+        //const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/${pageSize}`;
+        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/${pageSize}`;
         const response = await fetch(url);
         const data = await response.json();
 
@@ -41,7 +43,7 @@ export default function Accounts() {
 
 
     const updatePage = (pageIndex) => {
-        setPageIndex(pageIndex * 5);
+        setPageIndex(pageIndex * pageSize);
     }
 
     const openDialog = (data) => {
