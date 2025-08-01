@@ -24,12 +24,9 @@ export default function Admin({ accounts }) {
 
     // Load from the server - an Async function
     const getAgent = async () => {
-
-        //const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
-        const url = `https://daisy11functions20250801133537.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
-
+        const DAISY_SERVER_ROOT = import.meta.env.DAISY_SERVER_ROOT;
+        const url = `${DAISY_SERVER_ROOT}api/GetAgent/${accounts[0].username}`;
         const response = await fetch(url, GET());
-
         setData(await response.json());
     }
 
@@ -41,8 +38,8 @@ export default function Admin({ accounts }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        //const url = `http://localhost:7039/api/SaveAgent`;
-        const url = `https://daisy11functions20250801133537.azurewebsites.net/api/SaveAgent`;
+        const DAISY_SERVER_ROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
+        const url = `${DAISY_SERVER_ROOT}api/SaveAgent`;
 
         globalData.SetSpinnerVisible(true);
 

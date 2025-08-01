@@ -10,7 +10,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const globalData = useContext(UserContext);
     const [role, setRole] = useState("none");
-    const url = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
+    //const url = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
 
 
     useEffect(() => {
