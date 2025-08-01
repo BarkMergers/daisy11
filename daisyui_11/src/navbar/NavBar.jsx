@@ -20,12 +20,12 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
             try {
 
-                fetch(url + accounts[0].username)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        roleDataLoaded(data);
-                    })
-                    .catch()
+                //fetch(url + accounts[0].username)
+                //    .then((res) => res.json())
+                //    .then((data) => {
+                //        roleDataLoaded(data);
+                //    })
+                //    .catch()
 
             }
             catch (ex) { console.log(ex); }
@@ -121,7 +121,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                 {
                     mainMenu.map((item, i) => {
 
-                        if (item.secure && accounts.length == 0) return <></>
+                        if (item.secure && accounts.length == 0) return
 
 
 
@@ -145,7 +145,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
 
     const makeSubMenuItem = (subItem) => {
-        return (<> <li key={ Math.random() }>
+        return (<li key={Math.random()}>
             {subItem.name == "-" ?
                 <div className="divider"></div> :
                         (typeof subItem.onClick === "function" ?
@@ -153,14 +153,14 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                         :
                     <a href={subItem.href}>{subItem.href}: {subItem.name}</a>)
                     }
-        </li></>)
+        </li>)
     }
 
     const menuWide = function () {
         return (
             mainMenu.map((item, i) => {
 
-                if (item.secure && accounts.length == 0) return <></>
+                if (item.secure && accounts.length == 0) return
 
 
 

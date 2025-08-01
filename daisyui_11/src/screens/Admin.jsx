@@ -19,13 +19,36 @@ export default function Admin({ accounts }) {
             getAgent();
     }, [accounts]);
 
+
+
     // Load from the server - an Async function
     const getAgent = async () => {
-        //const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
-        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
-        const response = await fetch(url);
+
+        const token = sessionStorage.getItem("token");
+
+        //alert(token);
+
+
+        const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
+        //const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
+
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+
+
+
+
         setData(await response.json());
     }
+
+
+
+
 
     // Submit the record held in 'data' to the server
     const handleSubmit = (event) => {

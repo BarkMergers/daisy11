@@ -27,8 +27,8 @@ export default function Accounts() {
 
         newPageIndex = newPageIndex || 0;
 
-        //const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/${pageSize}`;
-        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/${pageSize}`;
+        const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/${pageSize}`;
+        //const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/${pageSize}`;
         const response = await fetch(url);
         const data = await response.json();
 
@@ -55,7 +55,6 @@ export default function Accounts() {
 
     return (
         <>
-
             <div style={{ flexGrow: "1", padding: "40px" }}>
                 <table className="accounts-table">
                     <thead>

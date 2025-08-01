@@ -1,6 +1,5 @@
 import './App.css';
 import NavBar from './navbar/NavBar';
-import Rating from './rating/Rating';
 import { useState } from 'react';
 import React from 'react';
 import { useMsal } from '@azure/msal-react';
@@ -26,17 +25,42 @@ import {
 
 function App() {
 
+
+
+
     const { instance, accounts } = useMsal();
 
-    const handleLogin = () => {
-        instance.loginPopup(loginRequest).catch(e => {
-            console.error(e);
-        });
+
+
+    const handleLogin = async () => {
+        //instance.loginPopup(loginRequest).catch(e => {
+        //    console.error(e);
+        //});
+
+        await instance.loginPopup(loginRequest);
+
+        const acc = instance.getAllAccounts();
+
+        loginRequest.account = acc[0];
+
+        const result = await instance.acquireTokenSilent(loginRequest);
+
+        //const token = result.accessToken;
+
+        sessionStorage.setItem("token", result.accessToken);
     };
+
+
+
 
     const handleLogout = () => {
         instance.logoutPopup();
     };
+
+
+
+
+
 
     var eventProcessingIconTimeout = null;
 
@@ -64,7 +88,8 @@ function App() {
         }
     }
 
-    const [globalData] = useState({ "AccountType": "Advanced Acount", SetSpinnerVisible: enableSpinner });
+    const [globalData] = useState({ AccountType: "Advanced Acount", SetSpinnerVisible: enableSpinner});
+
 
     return (
         <>
@@ -72,17 +97,38 @@ function App() {
 
                 <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
 
-                <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/dashboard" element={<Dashboard />}></Route>
-                            <Route path="/accounts" element={<Accounts />}></Route>
-                            <Route path="/admin" element={<Admin accounts={accounts} />}></Route>
-                            <Route path="/" element={<Home accounts={accounts} />}></Route>
-                            <Route path="*" element={<NotFound />}></Route>
-                        </Routes>
-                    </BrowserRouter>
-                </div>
+                {
+                    (accounts.length == 1 &&
+
+                        <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/dashboard" element={<Dashboard />}></Route>
+                                    <Route path="/accounts" element={<Accounts />}></Route>
+                                    <Route path="/admin" element={<Admin accounts={accounts} />}></Route>
+                                    <Route path="/" element={<Home accounts={accounts} />}></Route>
+                                    <Route path="*" element={<NotFound />}></Route>
+                                </Routes>
+                            </BrowserRouter>
+                        </div>
+                    )
+                }
+
+                {
+                    (accounts.length != 1 &&
+                        <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/dashboard" element={<Dashboard />}></Route>
+                                    <Route path="/" element={<Home accounts={accounts} />}></Route>
+                                    <Route path="*" element={<NotFound />}></Route>
+                                </Routes>
+                            </BrowserRouter>
+                        </div>
+                    )
+                }
+
+
 
                 <SpinnerLoader></SpinnerLoader>
 
