@@ -23,22 +23,21 @@ export default function Accounts() {
     });
 
     const getCustomer = async (newPageIndex) => {
-        alert(1);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        alert(2);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         newPageIndex = newPageIndex || 0;
 
-        alert(3);
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
-
-        alert(4);
 
         alert(URLROOT + url);
 
-
-
         const response = await fetch(URLROOT + url, GET());
+
+        var text = await response.text();
+
+        console.log(text);
+        alert(text);
+
 
         alert(5);
 
