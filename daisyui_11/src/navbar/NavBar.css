@@ -44,3 +44,11 @@ details > ul {
 .navbar-title {
     padding:10px;
 }
+
+.userNameDisplay {
+    max-width: 200px;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

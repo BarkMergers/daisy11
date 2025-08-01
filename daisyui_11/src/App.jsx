@@ -37,6 +37,8 @@ function App() {
 
     const handleLogout = () => {
         instance.logoutPopup();
+           
+        //document.location.href = '/';           
     };
 
     var eventProcessingIconTimeout = null;
@@ -71,13 +73,16 @@ function App() {
         <>
             <UserContext.Provider value={globalData}>
 
-                <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
-
                 {
                     (accounts.length == 1 &&
 
                         <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
                             <BrowserRouter>
+
+
+                                <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
+
+
                                 <Routes>
                                     <Route path="/dashboard" element={<Dashboard />}></Route>
                                     <Route path="/accounts" element={<Accounts />}></Route>
@@ -94,10 +99,13 @@ function App() {
                     (accounts.length != 1 &&
                         <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
                             <BrowserRouter>
+
+
+                                <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
+
                                 <Routes>
                                     <Route path="/dashboard" element={<Dashboard />}></Route>
                                     <Route path="/" element={<Home accounts={accounts} />}></Route>
-                                    <Route path="/admin" element={<Admin accounts={accounts} />}></Route>
                                     <Route path="*" element={<NotFound />}></Route>
                                 </Routes>
                             </BrowserRouter>

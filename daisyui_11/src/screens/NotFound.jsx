@@ -16,6 +16,8 @@ export default function NotFound() {
         background: "linear-gradient(red, blue)"
     }
 
+    alert(document.location.href);
+
     return (
         <>
             <div className="m-auto text-center">

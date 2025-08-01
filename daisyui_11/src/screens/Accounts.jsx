@@ -11,7 +11,7 @@ export default function Accounts() {
 
     const [data, setData] = useState([]);
     const [pageIndex, setPageIndex] = useState(0);
-    const [pagination, setPagination] = useState(0);
+    const [pagination, setPagination] = useState(null);
     const [message, setMessage] = useState("");
     const globalData = useContext(UserContext);
     const pageSize = 3;
@@ -79,7 +79,7 @@ export default function Accounts() {
             </div>
 
             <div style={{ padding: "40px", textAlign: "center" }}>
-                <Pagination data={pagination} updatePage={ updatePage }></Pagination>
+                <Pagination data={pagination} updatePage={updatePage}></Pagination>
             </div>
 
             <Modal id="my_modal_1" title="Account Details">

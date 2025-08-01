@@ -6,12 +6,14 @@ import './NavBar.css';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
+import { useNavigate } from 'react-router-dom';
+
+
 function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const globalData = useContext(UserContext);
     const [role, setRole] = useState("none");
-    //const url = "https://daisy11functions20250722145544.azurewebsites.net/api/GetRole/"
-
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -45,10 +47,10 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
 
     const mainMenu = [
-        { "name": "Dashboard", href: "/dashboard", secure: false },
+        { "name": "Dashboard", onClick: () => navigate('/dashboard'), secure: false },
         {
             "name": "Order", secure: true, list: [
-                { name: "Accounts", onClick: () => document.location.href='/Accounts' },
+                { name: "Accounts", onClick: () => navigate('/Accounts') },
                 { name: "-" },
                 { name: "Reject", onClick: () => alert('This has been rejected') }
             ]
@@ -59,7 +61,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                 { name: "Reject", onClick: () => alert('Claim rejected') }
             ]
         },
-        { "name": "Admin", secure: true, href: "/admin" },
+        { "name": "Admin", secure: true, onClick: () => navigate('/admin') },
     ]
 
     const endMenu = [
@@ -123,12 +125,10 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
                         if (item.secure && accounts.length == 0) return
 
-
-
                         if (typeof item.list === "undefined")
                             return <li key={i}>
 
-                                {item.href === null ? <a onClick={() => clicker(item.onClick)}>{item.name}</a> : <a href={item.href}>{item.name}</a> }
+                                <a onClick={() => clicker(item.onClick)}>{item.name}</a>
 
                             </li>
 
@@ -148,10 +148,9 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
         return (<li key={Math.random()}>
             {subItem.name == "-" ?
                 <div className="divider"></div> :
-                        (typeof subItem.onClick === "function" ?
+                        
                         <a onClick={() => clicker(subItem.onClick)}>{subItem.name}</a>
-                        :
-                    <a href={subItem.href}>{subItem.href}: {subItem.name}</a>)
+                  
                     }
         </li>)
     }
@@ -162,32 +161,13 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
                 if (item.secure && accounts.length == 0) return
 
-
-
                 if (typeof item.list === "undefined")
-                    return <li key={i}>
-                  
-
-                        {item.href === null ?
-                            <a onClick={() => clicker(item.onClick)}>{item.name}</a>
-                            :
-                            <a href={item.href}>{item.name}</a>
-                        }
-
-
-                    </li>
+                    return <li key={i}><a onClick={() => clicker(item.onClick)}>{item.name}</a></li>
 
                 return <li key={i}>
                     <details>
                         <summary onClick={(event) => menuFocus(event.target)}><a>{item.name}</a></summary>
-                        <ul tabIndex={0} onBlur={closeMenus} className="p-2">
-                 
-
-                            {item.list.map(makeSubMenuItem)}
-
-
-
-                        </ul>
+                        <ul tabIndex={0} onBlur={closeMenus} className="p-2">{item.list.map(makeSubMenuItem)}</ul>
                     </details></li>
             })
         );
@@ -230,7 +210,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                         { menuNarrow() }
                     </ul>
                 </div>
-                <a className="navbar-title btn-ghost text-xl" href="/">{title}</a>
+                <a className="navbar-title btn-ghost text-xl" onClick={() => navigate('/') }>{title}</a>
             </div>
 
             <div className="navbar-center hidden lg:flex">
@@ -249,7 +229,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                     {accounts.length > 0 ? (
                         <>
 
-                            <div><a>{accounts[0].username}</a></div>
+                            <div><a className="userNameDisplay">{accounts[0].username}</a></div>
                             <div style={{"cursor":"pointer"}}><a onClick={handleLogout}>Log out</a></div>
                         </>
                     ) : (
