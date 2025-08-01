@@ -46,6 +46,7 @@ jobs:
           github_id_token: ${{ steps.idtoken.outputs.result }}
         env:
           NODE_VERSION: '20.19.3'
+          VITE_DAISY_REDIRECT_URI: "https://nice-beach-0b426541e.1.azurestaticapps.net/"
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
