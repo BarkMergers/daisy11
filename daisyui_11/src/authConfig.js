@@ -3,7 +3,7 @@ const DAISY_FRONTEND_CLIENT_ID = import.meta.env.VITE_DAISY_FRONTEND_CLIENT_ID;
 const DAISY_BACKEND_CLIENT_ID = import.meta.env.VITE_DAISY_BACKEND_CLIENT_ID;
 const DAISY_REDIRECT_URI = import.meta.env.VITE_DAISY_REDIRECT_URI;
 
-alert(DAISY_REDIRECT_URI);
+alert("DAISY_REDIRECT_URI = " + DAISY_REDIRECT_URI);
 
 export const msalConfig = {
 
