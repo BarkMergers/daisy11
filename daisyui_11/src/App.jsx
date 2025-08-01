@@ -27,18 +27,45 @@ function App() {
 
     const { instance, accounts } = useMsal();
 
+    //const handleLogin = async () => {
+    //    await instance.loginPopup(loginRequest);
+    //    const acc = instance.getAllAccounts();
+    //    loginRequest.account = acc[0];
+    //    const result = await instance.acquireTokenSilent(loginRequest);
+    //    sessionStorage.setItem("token", result.accessToken);
+    //};
+
+
     const handleLogin = async () => {
-        await instance.loginPopup(loginRequest);
-        const acc = instance.getAllAccounts();
-        loginRequest.account = acc[0];
-        const result = await instance.acquireTokenSilent(loginRequest);
-        sessionStorage.setItem("token", result.accessToken);
-    };
+        try {
+            // Force user login to get a new session
+            await instance.loginPopup(loginRequest);
+
+            const account = instance.getAllAccounts()[0];
+            if (!account) throw new Error("No account found after login");
+
+            loginRequest.account = account;
+
+            // Try silent token acquisition
+            let result;
+            try {
+                result = await instance.acquireTokenSilent(loginRequest);
+            } catch (silentError) {
+                // Silent token failed — fallback to popup
+                console.warn("Silent token failed, trying popup:", silentError);
+                result = await instance.acquireTokenPopup(loginRequest);
+            }
+
+            sessionStorage.setItem("token", result.accessToken);
+        } catch (err) {
+            console.error("Login failed:", err);
+        }
+    }
 
     const handleLogout = () => {
         instance.logoutPopup();
 
-        navigate('/')
+        //navigate('/')
         //document.location.href = '/';           
     };
 
