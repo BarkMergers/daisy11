@@ -42,6 +42,9 @@ export default function Accounts() {
 
         alert(5);
 
+        console.log(response);
+        console.log(JSON.stringify(response));
+
         const data = await response.json();
 
         alert(6);
