@@ -32,20 +32,34 @@ export default function Accounts() {
         alert(3);
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
 
-        alert(3);
+        alert(4);
 
         alert(URLROOT + url);
 
 
 
         const response = await fetch(URLROOT + url, GET());
+
+        alert(5);
+
         const data = await response.json();
 
+        alert(6);
+
         setPagination(data.pagination);
+
+        alert(7);
+
         setPageIndex(newPageIndex);
+
+        alert(8);
+
         setData(data.data);
 
-        globalData.SetSpinnerVisible(false);
+        alert(9);
+
+
+       // globalData.SetSpinnerVisible(false);
 
         return response.json;
     }
@@ -55,7 +69,6 @@ export default function Accounts() {
     }
 
     const openDialog = (data) => {
-
         setMessage(`This is the account for ${data.firstname} ${data.lastname}`);
         document.getElementById('my_modal_1').showModal();
     }
