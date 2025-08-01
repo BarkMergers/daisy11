@@ -63,10 +63,7 @@ function App() {
     }
 
     const handleLogout = () => {
-        instance.logoutPopup();
-
-        //navigate('/')
-        //document.location.href = '/';           
+        instance.logoutPopup();        
     };
 
     var eventProcessingIconTimeout = null;

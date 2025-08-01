@@ -2,7 +2,6 @@
 import { useContext } from "react";
 import { UserContext } from '../App'
 
-
 export default function NotFound() {
 
     const globalData = useContext(UserContext);
@@ -16,17 +15,12 @@ export default function NotFound() {
         background: "linear-gradient(red, blue)"
     }
 
-    alert(document.location.href);
-
     return (
         <>
             <div className="m-auto text-center">
                 <div onClick={globalData.SetSpinnerVisible} style={imageStyle} ></div>
                 <div style={{ padding: "20px" }}>Page was not found</div>
             </div>
-
-
-
         </>
     );
 }

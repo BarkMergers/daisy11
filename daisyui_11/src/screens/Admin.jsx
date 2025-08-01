@@ -26,7 +26,10 @@ export default function Admin({ accounts }) {
     const getAgent = async () => {
         const url = `api/GetAgent/${accounts[0].username}`;
         const response = await fetch(URLROOT + url, GET());
-        setData(await response.json());
+
+        const text = await response.text();
+        console.log(text);
+        setData(JSON.stringify(text));
     }
 
     // Submit the record held in 'data' to the server
