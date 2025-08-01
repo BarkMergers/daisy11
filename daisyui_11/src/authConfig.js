@@ -8,7 +8,7 @@ export const msalConfig = {
     auth: {
         clientId: DAISY_FRONTEND_CLIENT_ID,
         authority: `https://login.microsoftonline.com/${DAISY_TENANT_ID}`,
-        redirectUri: DAISY_REDIRECT_URL,
+        redirectUri: `https://nice-beach-0b426541e.1.azurestaticapps.net/`,
     },
     cache: {
         cacheLocation: "localStorage",
