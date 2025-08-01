@@ -8,7 +8,7 @@ export const msalConfig = {
     auth: {
         clientId: frontEndClientId,
         authority: `https://login.microsoftonline.com/${tenantId}`,
-        redirectUri: "http://localhost:59414/",
+        redirectUri: "https://nice-beach-0b426541e.1.azurestaticapps.net/",
     },
     cache: {
         cacheLocation: "localStorage",
