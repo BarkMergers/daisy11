@@ -37,7 +37,8 @@ function App() {
 
     const handleLogout = () => {
         instance.logoutPopup();
-           
+
+        navigate('/')
         //document.location.href = '/';           
     };
 

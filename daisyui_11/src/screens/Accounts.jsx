@@ -33,33 +33,19 @@ export default function Accounts() {
 
         const response = await fetch(URLROOT + url, GET());
 
-        var text = await response.text();
+       // var text = await response.text();
+        //console.log(text);
+       // alert(text);
 
-        console.log(text);
-        alert(text);
 
-
-        alert(5);
-
-        console.log(response);
-        console.log(JSON.stringify(response));
 
         const data = await response.json();
 
-        alert(6);
-
         setPagination(data.pagination);
-
-        alert(7);
 
         setPageIndex(newPageIndex);
 
-        alert(8);
-
         setData(data.data);
-
-        alert(9);
-
 
        // globalData.SetSpinnerVisible(false);
 
