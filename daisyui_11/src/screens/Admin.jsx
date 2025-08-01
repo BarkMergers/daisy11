@@ -24,7 +24,7 @@ export default function Admin({ accounts }) {
 
     // Load from the server - an Async function
     const getAgent = async () => {
-        const DAISY_SERVER_ROOT = import.meta.env.DAISY_SERVER_ROOT;
+        const DAISY_SERVER_ROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
         const url = `${DAISY_SERVER_ROOT}api/GetAgent/${accounts[0].username}`;
         const response = await fetch(url, GET());
         setData(await response.json());

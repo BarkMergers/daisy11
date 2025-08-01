@@ -5,6 +5,7 @@ import Pagination from './../pagination/Pagination';
 import './Accounts.css';
 import { useContext } from "react";
 import { UserContext } from '../App'
+import { GET } from '../helpers/fetch';
 
 export default function Accounts() {
 
@@ -27,9 +28,9 @@ export default function Accounts() {
 
         newPageIndex = newPageIndex || 0;
 
-        const url = `http://localhost:7039/api/GetCustomer/${newPageIndex}/${pageSize}`;
-        //const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetCustomer/${newPageIndex}/${pageSize}`;
-        const response = await fetch(url);
+        const DAISY_SERVER_ROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
+        const url = `${DAISY_SERVER_ROOT}api/GetCustomer/${newPageIndex}/${pageSize}`;
+        const response = await fetch(url, GET());
         const data = await response.json();
 
         setPagination(data.pagination);
@@ -41,7 +42,6 @@ export default function Accounts() {
         return response.json;
     }
 
-
     const updatePage = (pageIndex) => {
         setPageIndex(pageIndex * pageSize);
     }
@@ -51,7 +51,6 @@ export default function Accounts() {
         setMessage(`This is the account for ${data.firstname} ${data.lastname}`);
         document.getElementById('my_modal_1').showModal();
     }
-
 
     return (
         <>
@@ -83,8 +82,6 @@ export default function Accounts() {
             <div style={{ padding: "40px", textAlign: "center" }}>
                 <Pagination data={pagination} updatePage={ updatePage }></Pagination>
             </div>
-
-       
 
             <Modal id="my_modal_1" title="Account Details">
                 {message}

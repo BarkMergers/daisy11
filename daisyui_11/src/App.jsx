@@ -25,42 +25,19 @@ import {
 
 function App() {
 
-
-
-
     const { instance, accounts } = useMsal();
 
-
-
     const handleLogin = async () => {
-        //instance.loginPopup(loginRequest).catch(e => {
-        //    console.error(e);
-        //});
-
         await instance.loginPopup(loginRequest);
-
         const acc = instance.getAllAccounts();
-
         loginRequest.account = acc[0];
-
         const result = await instance.acquireTokenSilent(loginRequest);
-
-        //const token = result.accessToken;
-
         sessionStorage.setItem("token", result.accessToken);
     };
-
-
-
 
     const handleLogout = () => {
         instance.logoutPopup();
     };
-
-
-
-
-
 
     var eventProcessingIconTimeout = null;
 
@@ -89,7 +66,6 @@ function App() {
     }
 
     const [globalData] = useState({ AccountType: "Advanced Acount", SetSpinnerVisible: enableSpinner});
-
 
     return (
         <>
