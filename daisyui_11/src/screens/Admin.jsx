@@ -5,6 +5,8 @@ import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
+import { POST } from '../helpers/fetch';
+
 export default function Admin({ accounts }) {
 
     // Access global functions
@@ -25,9 +27,8 @@ export default function Admin({ accounts }) {
     const getAgent = async () => {
 
         const token = sessionStorage.getItem("token");
-
-        const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
-        //const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
+        //const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
+        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
 
         const response = await fetch(url, {
             method: "GET",
@@ -35,10 +36,6 @@ export default function Admin({ accounts }) {
                 Authorization: `Bearer ${token}`
             }
         });
-
-
-
-
 
         setData(await response.json());
     }
@@ -48,20 +45,23 @@ export default function Admin({ accounts }) {
 
 
     // Submit the record held in 'data' to the server
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        //const url = `http://localhost:7039/api/SaveAgentDetail`;
-        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/SaveAgentDetail`;
+        //const url = `http://localhost:7039/api/SaveAgent`;
+        const url = `https://daisy11functions20250722145544.azurewebsites.net/api/SaveAgent`;
 
         globalData.SetSpinnerVisible(true);
 
-        fetch(url, { method: 'POST', body: JSON.stringify(data) })
+        await fetch(url, POST(data))
         .then(() => {
             globalData.SetSpinnerVisible(false);
             document.getElementById('my_save').showModal();
-        })
+        });
     }
+
+
+
 
     // Update the 'data' record held in the useState
     const updateData = (field, value) => {

@@ -1,7 +1,13 @@
+const tenantId = "3fdf479e-e456-4ae5-9431-657da2d108ec";
+const frontEndClientId = "b1799292-e17c-4428-8330-c695d2b35db1";
+const backEndClientId = "6be0af57-8832-4ef2-adc4-060e2067bcf6";
+
 export const msalConfig = {
+
+
     auth: {
-        clientId: "b1799292-e17c-4428-8330-c695d2b35db1",
-        authority: "https://login.microsoftonline.com/6d52e229-7b09-4772-885e-edd85950a304",
+        clientId: frontEndClientId,
+        authority: `https://login.microsoftonline.com/${tenantId}`,
         redirectUri: "http://localhost:59414/",
     },
     cache: {
@@ -12,7 +18,7 @@ export const msalConfig = {
 
 export const loginRequest = {
     scopes: [
-        "api://6be0af57-8832-4ef2-adc4-060e2067bcf6/.default"    //,
+        `api://${backEndClientId}/.default`
         //"User.Read"
     ], // Microsoft Graph scope for profile info
 };
