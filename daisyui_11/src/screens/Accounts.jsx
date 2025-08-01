@@ -29,17 +29,17 @@ export default function Accounts() {
 
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
 
-        alert(URLROOT + url);
+        console.log(URLROOT + url);
 
         const response = await fetch(URLROOT + url, GET());
 
-       // var text = await response.text();
-        //console.log(text);
-       // alert(text);
+        const text = await response.text();
+        console.log(text);
+       
 
 
 
-        const data = await response.json();
+        const data = JSON.stringify(text); // await response.json();
 
         setPagination(data.pagination);
 
