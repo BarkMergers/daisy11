@@ -5,7 +5,7 @@ import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
-import { POST } from '../helpers/fetch';
+import { POST, GET } from '../helpers/fetch';
 
 export default function Admin({ accounts }) {
 
@@ -26,16 +26,10 @@ export default function Admin({ accounts }) {
     // Load from the server - an Async function
     const getAgent = async () => {
 
-        const token = sessionStorage.getItem("token");
         //const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
         const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
 
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+        const response = await fetch(url, GET());
 
         setData(await response.json());
     }

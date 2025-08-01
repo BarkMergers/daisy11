@@ -12,3 +12,16 @@ export const POST =function(data) {
         }
     }
 }
+
+
+export const GET = function () {
+
+    const token = sessionStorage.getItem("token");
+
+    return {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+}
