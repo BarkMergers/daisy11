@@ -5,7 +5,7 @@ import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
-import { POST, GET } from '../helpers/fetch';
+import { URLROOT, POST, GET } from '../helpers/fetch';
 
 export default function Admin({ accounts }) {
 
@@ -24,32 +24,19 @@ export default function Admin({ accounts }) {
 
     // Load from the server - an Async function
     const getAgent = async () => {
-
-        const DAISY_SERVER_ROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
-
-
-        alert("DAISY_SERVER_ROOT = " + DAISY_SERVER_ROOT);
-
-
-        const url = `${DAISY_SERVER_ROOT}api/GetAgent/${accounts[0].username}`;
-        const response = await fetch(url, GET());
+        const url = `api/GetAgent/${accounts[0].username}`;
+        const response = await fetch(URLROOT + url, GET());
         setData(await response.json());
     }
-
-
-
-
 
     // Submit the record held in 'data' to the server
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const DAISY_SERVER_ROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
-        const url = `${DAISY_SERVER_ROOT}api/SaveAgent`;
-
+        const url = 'api/SaveAgent';
         globalData.SetSpinnerVisible(true);
 
-        await fetch(url, POST(data))
+        await fetch(URLROOT + url, POST(data))
         .then(() => {
             globalData.SetSpinnerVisible(false);
             document.getElementById('my_save').showModal();
