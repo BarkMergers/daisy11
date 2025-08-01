@@ -23,12 +23,21 @@ export default function Accounts() {
     });
 
     const getCustomer = async (newPageIndex) => {
-        globalData.SetSpinnerVisible(true);
+        alert(1);
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
+        alert(2);
         newPageIndex = newPageIndex || 0;
 
+        alert(3);
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
+
+        alert(3);
+
+        alert(URLROOT + url);
+
+
+
         const response = await fetch(URLROOT + url, GET());
         const data = await response.json();
 

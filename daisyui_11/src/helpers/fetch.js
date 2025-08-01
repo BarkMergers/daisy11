@@ -10,6 +10,7 @@ export const POST =function(data) {
     }
 }
 
+
 export const GET = function () {
     return {
         method: 'GET',
