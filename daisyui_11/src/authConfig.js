@@ -1,14 +1,16 @@
 const DAISY_TENANT_ID = import.meta.env.VITE_DAISY_TENANT_ID; 
 const DAISY_FRONTEND_CLIENT_ID = import.meta.env.VITE_DAISY_FRONTEND_CLIENT_ID;
-const DAISY_BACKEND_CLIENT_ID = import.meta.env.VITE_DAISY_BACKEND_CLIENT_ID;;
-const DAISY_REDIRECT_URL = import.meta.env.VITE_DAISY_REDIRECT_URL;
+const DAISY_BACKEND_CLIENT_ID = import.meta.env.VITE_DAISY_BACKEND_CLIENT_ID;
+const DAISY_REDIRECT_URI = import.meta.env.VITE_DAISY_REDIRECT_URI;
+
+alert(DAISY_REDIRECT_URI);
 
 export const msalConfig = {
 
     auth: {
         clientId: DAISY_FRONTEND_CLIENT_ID,
         authority: `https://login.microsoftonline.com/${DAISY_TENANT_ID}`,
-        redirectUri: `https://nice-beach-0b426541e.1.azurestaticapps.net/`,
+        redirectUri: DAISY_REDIRECT_URI,
     },
     cache: {
         cacheLocation: "localStorage",
