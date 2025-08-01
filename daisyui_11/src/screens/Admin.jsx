@@ -26,9 +26,6 @@ export default function Admin({ accounts }) {
 
         const token = sessionStorage.getItem("token");
 
-        //alert(token);
-
-
         const url = `http://localhost:7039/api/GetAgent/${accounts[0].username}`;
         //const url = `https://daisy11functions20250722145544.azurewebsites.net/api/GetAgent/${accounts[0].username}`;
 
