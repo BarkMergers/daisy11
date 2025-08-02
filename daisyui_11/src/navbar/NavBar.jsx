@@ -210,7 +210,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                         { menuNarrow() }
                     </ul>
                 </div>
-                <a className="navbar-title btn-ghost text-xl" onClick={() => navigate('/') }>{title}</a>
+                <a className="navbar-title btn-ghost text-xl" style={{ cursor: "pointer" }} onClick={() => navigate('/') }>{title}</a>
             </div>
 
             <div className="navbar-center hidden lg:flex">
@@ -230,7 +230,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                         <>
 
                             <div><a className="userNameDisplay">{accounts[0].username}</a></div>
-                            <div style={{"cursor":"pointer"}}><a onClick={handleLogout}>Log out</a></div>
+                            <div style={{ "cursor": "pointer" }}><a onClick={() => { handleLogout(); navigate('/loggedout'); } }>Log out</a></div>
                         </>
                     ) : (
                             <div style={{ "cursor": "pointer" }}><a onClick={handleLogin}>Log in</a></div>

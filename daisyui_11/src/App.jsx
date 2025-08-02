@@ -11,9 +11,9 @@ import Admin from './screens/Admin';
 import Home from './screens/Home';
 import NotFound from './screens/NotFound';
 import SpinnerLoader from './spinnerLoader/SpinnerLoader';
+import LoggedOut from './screens/LoggedOut';
 
 import { createContext } from "react";
-import { token } from "./helpers/fetch";
 
 export const UserContext = createContext();
 
@@ -108,15 +108,11 @@ function App() {
             <UserContext.Provider value={globalData}>
 
                 {
-                    (accounts.length == 1 &&
+                    accounts.length == 1 &&
 
                         <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
                             <BrowserRouter>
-
-
                                 <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
-
-
                                 <Routes>
                                     <Route path="/dashboard" element={<Dashboard />}></Route>
                                     <Route path="/accounts" element={<Accounts />}></Route>
@@ -126,19 +122,17 @@ function App() {
                                 </Routes>
                             </BrowserRouter>
                         </div>
-                    )
+                    
                 }
 
                 {
                     (accounts.length != 1 &&
                         <div style={{ flexGrow: "1", overflow: "auto", display: "flex", flexDirection: "column" }}>
                             <BrowserRouter>
-
-
                                 <NavBar title="MyTest" accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
-
                                 <Routes>
                                     <Route path="/dashboard" element={<Dashboard />}></Route>
+                                    <Route path="/loggedout" element={<LoggedOut />}></Route>
                                     <Route path="/" element={<Home accounts={accounts} />}></Route>
                                     <Route path="*" element={<NotFound />}></Route>
                                 </Routes>
