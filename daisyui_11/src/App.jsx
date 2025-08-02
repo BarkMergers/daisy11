@@ -13,7 +13,11 @@ import NotFound from './screens/NotFound';
 import SpinnerLoader from './spinnerLoader/SpinnerLoader';
 
 import { createContext } from "react";
+import { token } from "./helpers/fetch";
+
 export const UserContext = createContext();
+
+
 
 import {
     BrowserRouter,
@@ -23,6 +27,8 @@ import {
 } from "react-router-dom";
 
 
+
+    
 function App() {
 
     const { instance, accounts } = useMsal();
@@ -56,7 +62,10 @@ function App() {
                 result = await instance.acquireTokenPopup(loginRequest);
             }
 
-            sessionStorage.setItem("token", result.accessToken);
+            token.value = result.accessToken;
+            //sessionStorage.setItem("token", result.accessToken);
+            
+
         } catch (err) {
             console.error("Login failed:", err);
         }

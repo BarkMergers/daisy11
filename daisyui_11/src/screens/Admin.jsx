@@ -5,7 +5,9 @@ import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
-import { URLROOT, POST, GET } from '../helpers/fetch';
+import { URLROOT, POST, GET, token } from '../helpers/fetch';
+
+
 
 export default function Admin({ accounts }) {
 
@@ -24,12 +26,15 @@ export default function Admin({ accounts }) {
 
     // Load from the server - an Async function
     const getAgent = async () => {
+
         const url = `api/GetAgent/${accounts[0].username}`;
         const response = await fetch(URLROOT + url, GET());
 
         const text = await response.text();
         console.log(text);
-        setData(JSON.stringify(text));
+        const data = JSON.parse(text);
+
+        setData(data);        
     }
 
     // Submit the record held in 'data' to the server

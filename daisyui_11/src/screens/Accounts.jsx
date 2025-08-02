@@ -30,6 +30,8 @@ export default function Accounts() {
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
 
         console.log(URLROOT + url);
+        console.log(sessionStorage.getItem("token"));
+
 
         const response = await fetch(URLROOT + url, GET());
 
@@ -39,7 +41,7 @@ export default function Accounts() {
 
 
 
-        const data = JSON.stringify(text); // await response.json();
+        const data = JSON.parse(text); // await response.json();
 
         setPagination(data.pagination);
 
