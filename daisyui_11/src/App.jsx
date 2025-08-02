@@ -62,8 +62,8 @@ function App() {
                 result = await instance.acquireTokenPopup(loginRequest);
             }
 
-            token.value = result.accessToken;
-            //sessionStorage.setItem("token", result.accessToken);
+            //token.value = result.accessToken;
+            sessionStorage.setItem("token", result.accessToken);
             
 
         } catch (err) {

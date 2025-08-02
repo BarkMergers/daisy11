@@ -1,14 +1,18 @@
 export const URLROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
 
-export var token = { value: null };
 
 
 export const POST = function(data) {
+
+    const token = sessionStorage.getItem("token");
+    console.log(token);
+
+
     return {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            Authorization: `Bearer ${token.value}`
+            Authorization: `Bearer ${token}`
         }
     }
 }
@@ -16,12 +20,14 @@ export const POST = function(data) {
 
 export const GET = function () {
 
-    console.log(token.value);
+
+    const token = sessionStorage.getItem("token");
+    console.log(token);
 
     return {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${token.value}`
+            Authorization: `Bearer ${token}`
         }
     }
 }

@@ -5,7 +5,7 @@ import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
-import { URLROOT, POST, GET, token } from '../helpers/fetch';
+import { URLROOT, POST, GET } from '../helpers/fetch';
 
 
 
