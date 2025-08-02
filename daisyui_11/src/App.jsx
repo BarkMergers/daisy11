@@ -72,7 +72,8 @@ function App() {
     }
 
     const handleLogout = () => {
-        instance.logoutPopup();        
+        instance.logoutPopup();    
+        sessionStorage.removeItem("token");
     };
 
     var eventProcessingIconTimeout = null;
