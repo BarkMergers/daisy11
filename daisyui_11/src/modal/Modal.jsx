@@ -1,6 +1,6 @@
 ﻿import { useEffect, useRef } from 'react'
 
-export default function Modal({ id, title, children, visible, onClose }) {
+export default function Modal({ id, title, children, visible, onClose, submit }) {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -26,9 +26,21 @@ export default function Modal({ id, title, children, visible, onClose }) {
             <form method="dialog" className="modal-box text-center">
                 <h3 className="text-center text-lg font-bold">{title}</h3>
                 {children}
-                <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
-                    <button className="btn" onClick={handleClose}>Close</button>
-                </div>
+
+                {submit == "" &&
+                    <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
+                        <button className="btn" onClick={handleClose}>Close</button>
+                    </div>
+                }
+
+                {submit == "save" &&
+                    <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
+                        <button type="submit" className="btn" onClick={handleClose}>Save</button>
+                        <button className="btn" onClick={handleClose}>Cancel</button>
+                    </div>
+                }
+
+
             </form>
         </dialog>
     );

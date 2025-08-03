@@ -12,19 +12,16 @@ import Home from './screens/Home';
 import NotFound from './screens/NotFound';
 import SpinnerLoader from './spinnerLoader/SpinnerLoader';
 import LoggedOut from './screens/LoggedOut';
-
+import Input from './input/Input'
 import { createContext } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+
 
 export const UserContext = createContext();
 
 
 
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    Link,
-} from "react-router-dom";
 
 
 
@@ -42,7 +39,7 @@ function App() {
     //};
 
 
-    const handleLogin = async () => {
+    const handleLogin = async (loginNavigationFunction) => {
         try {
             // Force user login to get a new session
             await instance.loginPopup(loginRequest);
@@ -64,7 +61,10 @@ function App() {
 
             //token.value = result.accessToken;
             sessionStorage.setItem("token", result.accessToken);
-            
+
+            loginNavigationFunction();
+
+
 
         } catch (err) {
             console.error("Login failed:", err);
@@ -149,6 +149,18 @@ function App() {
                 <Modal id="my_permissions" title="Permissions">
                     You do not currently have any permissions
                 </Modal>
+
+
+                <Modal id="my_claim_rejected" title="Reject Claim" submit="save">
+                        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+
+                            <Input value={0} type="number" title="Claim ID" placeholder="Claim to reject"  />
+
+                            
+
+                        </fieldset>
+                </Modal>
+
 
             </UserContext.Provider>
         </>

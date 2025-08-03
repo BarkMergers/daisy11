@@ -9,6 +9,11 @@ import { UserContext } from '../App'
 import { useNavigate } from 'react-router-dom';
 
 
+import {
+    useLocation
+} from "react-router-dom";
+
+
 function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const globalData = useContext(UserContext);
@@ -44,6 +49,18 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
 
 
+    let location = useLocation();
+
+    const loginNavigate = () => {
+        switch (location.pathname) {
+            case "/loggedout":
+            case "/notfound":
+                navigate("/")
+
+        }
+    }
+
+
 
 
     const mainMenu = [
@@ -58,7 +75,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
         {
             "name": "Claims", secure: true, list: [
                 { name: "Submit", onClick: () => alert('Claim submitted') },
-                { name: "Reject", onClick: () => alert('Claim rejected') }
+                { name: "Reject", onClick: () => document.getElementById('my_claim_rejected').showModal() }
             ]
         },
         { "name": "Admin", secure: true, onClick: () => navigate('/admin') },
@@ -233,7 +250,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                             <div style={{ "cursor": "pointer" }}><a onClick={() => { handleLogout(); navigate('/loggedout'); } }>Log out</a></div>
                         </>
                     ) : (
-                            <div style={{ "cursor": "pointer" }}><a onClick={handleLogin}>Log in</a></div>
+                            <div style={{ "cursor": "pointer" }}><a onClick={() => { handleLogin(loginNavigate) }}>Log in</a></div>
                     )}
 
                 </div>
