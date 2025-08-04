@@ -13,7 +13,6 @@ export default function Accounts() {
     const [pageIndex, setPageIndex] = useState(0);
     const [pagination, setPagination] = useState(null);
     const [message, setMessage] = useState("");
-    const globalData = useContext(UserContext);
     const pageSize = 3;
 
 
@@ -29,18 +28,11 @@ export default function Accounts() {
 
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
 
-        console.log(URLROOT + url);
-        console.log(sessionStorage.getItem("token"));
-
-
         const response = await fetch(URLROOT + url, GET());
 
         const text = await response.text();
         console.log(text);
        
-
-
-
         const data = JSON.parse(text); // await response.json();
 
         setPagination(data.pagination);

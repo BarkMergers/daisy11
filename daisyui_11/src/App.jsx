@@ -16,6 +16,7 @@ import Input from './input/Input'
 import { createContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
+import { URLROOT, POST, GET } from './helpers/fetch';
 
 
 export const UserContext = createContext();
@@ -30,15 +31,6 @@ function App() {
 
     const { instance, accounts } = useMsal();
 
-    //const handleLogin = async () => {
-    //    await instance.loginPopup(loginRequest);
-    //    const acc = instance.getAllAccounts();
-    //    loginRequest.account = acc[0];
-    //    const result = await instance.acquireTokenSilent(loginRequest);
-    //    sessionStorage.setItem("token", result.accessToken);
-    //};
-
-
     const handleLogin = async (loginNavigationFunction) => {
         try {
             // Force user login to get a new session
@@ -52,28 +44,29 @@ function App() {
             // Try silent token acquisition
             let result;
             try {
-                result = await instance.acquireTokenSilent(loginRequest);
+
+                result = await instance.acquireTokenSilent({
+                    ...loginRequest,
+                    forceRefresh: true, // <-- important if cache might be stale
+                });
+
+                await fetch(URLROOT + "api/StoreToken", POST({ Token: result.accessToken }));
+                loginNavigationFunction();
+
             } catch (silentError) {
                 // Silent token failed — fallback to popup
                 console.warn("Silent token failed, trying popup:", silentError);
                 result = await instance.acquireTokenPopup(loginRequest);
             }
-
-            //token.value = result.accessToken;
-            sessionStorage.setItem("token", result.accessToken);
-
-            loginNavigationFunction();
-
-
-
         } catch (err) {
             console.error("Login failed:", err);
         }
     }
 
-    const handleLogout = () => {
-        instance.logoutPopup();    
-        sessionStorage.removeItem("token");
+    const handleLogout = async () => {
+        instance.logoutPopup();   
+        await fetch(URLROOT + "api/RemoveToken", POST({}));
+ 
     };
 
     var eventProcessingIconTimeout = null;
@@ -142,14 +135,11 @@ function App() {
                     )
                 }
 
-
-
                 <SpinnerLoader></SpinnerLoader>
 
                 <Modal id="my_permissions" title="Permissions">
                     You do not currently have any permissions
                 </Modal>
-
 
                 <Modal id="my_claim_rejected" title="Reject Claim" submit="save">
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
