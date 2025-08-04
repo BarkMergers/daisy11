@@ -27,7 +27,8 @@ export default function Modal({ id, title, children, visible, onClose, submit })
                 <h3 className="text-center text-lg font-bold">{title}</h3>
                 {children}
 
-                {submit == "" &&
+
+                {(typeof submit == "undefined" || submit == "") &&
                     <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
                         <button className="btn" onClick={handleClose}>Close</button>
                     </div>

@@ -5,7 +5,7 @@ import Pagination from './../pagination/Pagination';
 import './Accounts.css';
 import { useContext } from "react";
 import { UserContext } from '../App'
-import { URLROOT, GET } from '../helpers/fetch';
+import { URLROOT, GET, SafeFetch } from '../helpers/fetch';
 
 export default function Accounts() {
 
@@ -28,7 +28,7 @@ export default function Accounts() {
 
         const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
 
-        const response = await fetch(URLROOT + url, GET());
+        const response = await SafeFetch(URLROOT + url, GET());
 
         const text = await response.text();
         console.log(text);
