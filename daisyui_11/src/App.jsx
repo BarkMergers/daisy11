@@ -31,6 +31,22 @@ function App() {
 
     const { instance, accounts } = useMsal();
 
+
+    const getSubdomain = () => {
+        const hostname = window.location.hostname; // "mysubdomain.localhost"
+        const parts = hostname.split('.');
+
+        // For "mysubdomain.localhost", you'd get ["mysubdomain", "localhost"]
+        // If you expect the base domain to always be "localhost", then:
+        if (parts.length > 1 && parts[parts.length - 1] === 'localhost') {
+            return parts.slice(0, -1).join('.'); // "mysubdomain"
+        }
+
+        return null;
+    };
+
+
+
     const handleLogin = async (loginNavigationFunction) => {
         try {
             // Force user login to get a new session
@@ -50,7 +66,7 @@ function App() {
                     forceRefresh: true, // <-- important if cache might be stale
                 });
 
-                await SafeFetch("api/StoreToken", POST({ Token: result.accessToken }));
+                await SafeFetch("api/StoreToken", POST({ Token: result.accessToken, Tenant: getSubdomain() }));
                 loginNavigationFunction();
 
             } catch (silentError) {
