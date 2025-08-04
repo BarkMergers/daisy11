@@ -1,4 +1,4 @@
-export const URLROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
+const URLROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
 
 export const POST = function(data) {
     return {
@@ -19,7 +19,7 @@ export const SafeFetch = async function (url, data) {
 
     let response;
     try {
-        response = await fetch(url, data);
+        response = await fetch(URLROOT + url, data);
         if (!response.ok) {
             const errorText = await response.text();
             throw new Error(`HTTP ${response.status}: ${errorText}`);
@@ -27,24 +27,18 @@ export const SafeFetch = async function (url, data) {
         return response;
     }
     catch (ex) {
+        switch (response == null ? null : response.status) {
+            case 406:
+                {
+                    alert(ex);
+                    return;
+                }
 
-
-            switch (response == null ? null : response.status) {
-                case 406:
-                    {
-                        alert(ex);
-                        return;
-                    }
-
-                default:
-                    {
-                        alert(ex);
-                        return;
-                    }
-
-
-            
-
+            default:
+                {
+                    alert(ex);
+                    return;
+                }
         }
     }
 }

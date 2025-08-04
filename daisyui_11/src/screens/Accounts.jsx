@@ -3,9 +3,9 @@ import Modal from './../modal/Modal'
 import { useQuery } from "@tanstack/react-query";
 import Pagination from './../pagination/Pagination';
 import './Accounts.css';
-import { useContext } from "react";
 import { UserContext } from '../App'
-import { URLROOT, GET, SafeFetch } from '../helpers/fetch';
+import { GET, SafeFetch } from '../helpers/fetch';
+import { useContext } from "react";
 
 export default function Accounts() {
 
@@ -14,7 +14,7 @@ export default function Accounts() {
     const [pagination, setPagination] = useState(null);
     const [message, setMessage] = useState("");
     const pageSize = 3;
-
+    const globalData = useContext(UserContext);
 
      useQuery({
         queryKey: ['customers', pageIndex],
@@ -23,17 +23,17 @@ export default function Accounts() {
 
     const getCustomer = async (newPageIndex) => {
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        globalData.SetSpinnerVisible(true);
+
+        await new Promise((resolve) => setTimeout(resolve, 50));
         newPageIndex = newPageIndex || 0;
 
-        const url = `api/GetCustomer/${newPageIndex}/${pageSize}`;
-
-        const response = await SafeFetch(URLROOT + url, GET());
+        const response = await SafeFetch(`api/GetCustomer/${newPageIndex}/${pageSize}`, GET());
 
         const text = await response.text();
         console.log(text);
        
-        const data = JSON.parse(text); // await response.json();
+        const data = JSON.parse(text); 
 
         setPagination(data.pagination);
 
@@ -41,7 +41,7 @@ export default function Accounts() {
 
         setData(data.data);
 
-       // globalData.SetSpinnerVisible(false);
+        globalData.SetSpinnerVisible(false);
 
         return response.json;
     }

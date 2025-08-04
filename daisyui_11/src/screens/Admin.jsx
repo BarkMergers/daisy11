@@ -5,7 +5,7 @@ import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
 
-import { URLROOT, POST, GET, SafeFetch } from '../helpers/fetch';
+import { POST, GET, SafeFetch } from '../helpers/fetch';
 
 
 
@@ -27,8 +27,7 @@ export default function Admin({ accounts }) {
     // Load from the server - an Async function
     const getAgent = async () => {
 
-        const url = `api/GetAgent/${accounts[0].username}`;
-        const response = await SafeFetch(URLROOT + url, GET());
+        const response = await SafeFetch(`api/GetAgent/${accounts[0].username}`, GET());
 
         const text = await response.text();
         console.log(text);
@@ -41,10 +40,9 @@ export default function Admin({ accounts }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const url = 'api/SaveAgent';
         globalData.SetSpinnerVisible(true);
 
-        await SafeFetch(URLROOT + url, POST(data))
+        await SafeFetch('api/SaveAgent', POST(data))
         .then(() => {
             globalData.SetSpinnerVisible(false);
             document.getElementById('my_save').showModal();

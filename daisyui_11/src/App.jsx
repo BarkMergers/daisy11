@@ -16,7 +16,7 @@ import Input from './input/Input'
 import { createContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-import { URLROOT, POST, GET, SafeFetch } from './helpers/fetch';
+import { POST, SafeFetch } from './helpers/fetch';
 
 
 export const UserContext = createContext();
@@ -50,7 +50,7 @@ function App() {
                     forceRefresh: true, // <-- important if cache might be stale
                 });
 
-                await SafeFetch(URLROOT + "api/StoreToken", POST({ Token: result.accessToken }));
+                await SafeFetch("api/StoreToken", POST({ Token: result.accessToken }));
                 loginNavigationFunction();
 
             } catch (silentError) {
@@ -65,7 +65,7 @@ function App() {
 
     const handleLogout = async () => {
         instance.logoutPopup();   
-        await SafeFetch(URLROOT + "api/RemoveToken", POST({}));
+        await SafeFetch("api/RemoveToken", POST({}));
  
     };
 
