@@ -15,6 +15,11 @@ export const GET = function () {
     }
 }
 
+export const SafeFetchJson = async function (url, data) {
+    let response = await SafeFetch(url, data);
+    return await response.json(); 
+}
+
 export const SafeFetch = async function (url, data) {
 
     let response;

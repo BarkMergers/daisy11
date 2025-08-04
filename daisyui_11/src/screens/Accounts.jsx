@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Pagination from './../pagination/Pagination';
 import './Accounts.css';
 import { UserContext } from '../App'
-import { GET, SafeFetch } from '../helpers/fetch';
+import { GET, SafeFetchJson } from '../helpers/fetch';
 import { useContext } from "react";
 
 export default function Accounts() {
@@ -25,25 +25,17 @@ export default function Accounts() {
 
         globalData.SetSpinnerVisible(true);
 
-        await new Promise((resolve) => setTimeout(resolve, 50));
         newPageIndex = newPageIndex || 0;
 
-        const response = await SafeFetch(`api/GetCustomer/${newPageIndex}/${pageSize}`, GET());
-
-        const text = await response.text();
-        console.log(text);
-       
-        const data = JSON.parse(text); 
+        const data = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, GET());
 
         setPagination(data.pagination);
-
         setPageIndex(newPageIndex);
-
         setData(data.data);
 
         globalData.SetSpinnerVisible(false);
 
-        return response.json;
+        return data;
     }
 
     const updatePage = (pageIndex) => {
