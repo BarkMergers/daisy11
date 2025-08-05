@@ -28,6 +28,11 @@ export default function Admin({ accounts }) {
     const getAgent = async () => {
 
         const data = await SafeFetchJson(`api/GetAgent/${accounts[0].username}`, GET());
+
+        console.log(JSON.stringify(data));
+
+
+
         setData(data);
 
         //const text = await response.text();
@@ -70,6 +75,8 @@ export default function Admin({ accounts }) {
 
             <form onSubmit={handleSubmit} className="mx-auto my-10">
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
+
+                    <span>{data.tenant}</span>
 
                     <Input value={data.firstname} type="text" title="First Name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
 
