@@ -29,10 +29,6 @@ export default function Admin({ accounts }) {
 
         const data = await SafeFetchJson(`api/GetAgent/${accounts[0].username}`, GET());
 
-        console.log(JSON.stringify(data));
-
-
-
         setData(data);
 
         //const text = await response.text();
@@ -76,17 +72,17 @@ export default function Admin({ accounts }) {
             <form onSubmit={handleSubmit} className="mx-auto my-10">
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
-                    <span>{data.tenant}</span>
+                    <span>{data?.tenant || ""}</span>
 
-                    <Input value={data.firstname} type="text" title="First Name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
+                    <Input value={data?.firstname || ""} type="text" title="First Name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
 
-                    <Input value={data.lastname} type="text" title="Last Name" placeholder="Your last name" onChange={(e) => updateData('lastname', e.target.value)} />
+                    <Input value={data?.lastname || ""} type="text" title="Last Name" placeholder="Your last name" onChange={(e) => updateData('lastname', e.target.value)} />
 
-                    <Input value={data.active} type="checkbox" title="Active" onChange={(e) => updateData('active', e.target.checked)} />
+                    <Input value={data?.active || ""} type="checkbox" title="Active" onChange={(e) => updateData('active', e.target.checked)} />
 
-                    <Input value={data.age} type="number" title="Age" placeholder="How old are you" onChange={(e) => updateData('age', e.target.value)} />
+                    <Input value={data?.age || 0} type="number" title="Age" placeholder="How old are you" onChange={(e) => updateData('age', e.target.value)} />
 
-                    <Select value={data.role} type="text" title="Role" data={roleList} onChange={(e) => updateData('role', e.target.value)} />
+                    <Select value={data?.role || ""} type="text" title="Role" data={roleList} onChange={(e) => updateData('role', e.target.value)} />
 
                     <button type="submit" className="btn btn-neutral mx-auto mt-4">Save</button>
 

@@ -17,16 +17,19 @@ export const GET = function () {
 
 export const SafeFetchJson = async function (url, data) {
     let response = await SafeFetch(url, data);
-    return await response.json(); 
+    if (response != null) {
+        return await response.json();
+    }
 }
 
 export const SafeFetch = async function (url, data) {
 
     let response;
+    let errorText;
     try {
         response = await fetch(URLROOT + url, data);
         if (!response.ok) {
-            const errorText = await response.text();
+            errorText = await response.text();
             throw new Error(`HTTP ${response.status}: ${errorText}`);
         }
         return response;
@@ -35,14 +38,14 @@ export const SafeFetch = async function (url, data) {
         switch (response == null ? null : response.status) {
             case 406:
                 {
-                    alert(ex);
-                    return;
+                    alert(ex + ": " + url);
+                    return null;
                 }
 
             default:
                 {
-                    alert(ex);
-                    return;
+                    alert(ex + ": " + url);
+                    return null;
                 }
         }
     }
