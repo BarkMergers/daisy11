@@ -66,6 +66,9 @@ function App() {
                     forceRefresh: true, // <-- important if cache might be stale
                 });
 
+
+                alert("You are in tenant " + getSubdomain());
+
                 await SafeFetch("api/StoreToken", POST({ Token: result.accessToken, Tenant: getSubdomain() }));
                 loginNavigationFunction();
 
