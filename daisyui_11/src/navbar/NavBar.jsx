@@ -99,7 +99,12 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
     const menuNarrow = function () {
         return (
 
+
+
             <>
+
+                
+
                 <ul className="menu menu-horizontal inline-flex justify-center px-1 text-center sm:hidden">
                     {endMenuWide()}
                 </ul >
@@ -179,9 +184,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
     }
 
     return (
-    
         <div ref={containerRef} className="navbar bg-base-100 pl-[0px] shadow-sm">
-
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex="0" role="button" className="hamburger btn btn-ghost lg:hidden">
@@ -212,7 +215,7 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                     {accounts.length > 0 ? (
                         <>
 
-                            <div style={{ "cursor": "pointer" }}><a className="userNameDisplay" onClick={() => navigate('/mydetails')}>{accounts[0].username}</a></div>
+                            <div style={{ "cursor": "pointer" }}><a className="userNameDisplay" onClick={() => navigate('/mydetails')}>{accounts[0].name}</a></div>
                             <div style={{ "cursor": "pointer" }}><a onClick={() => { handleLogout(); navigate('/loggedout'); } }>Log out</a></div>
                         </>
                     ) : (
