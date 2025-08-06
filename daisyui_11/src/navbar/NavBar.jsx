@@ -1,4 +1,4 @@
-﻿import React, { useRef, useEffect, useState } from 'react'
+﻿import React, { useRef } from 'react'
 import keyIcon from '/key.png'
 import bellIcon from '/bell.png'
 import './NavBar.css';
@@ -17,37 +17,7 @@ import {
 function NavBar({ title, accounts, handleLogout, handleLogin }) {
 
     const globalData = useContext(UserContext);
-    const [role, setRole] = useState("none");
     const navigate = useNavigate();
-
-    useEffect(() => {
-
-        if (accounts.length > 0) {
-            roleDataLoaded({ role: "Loading role..." });
-
-            try {
-
-                //fetch(url + accounts[0].username)
-                //    .then((res) => res.json())
-                //    .then((data) => {
-                //        roleDataLoaded(data);
-                //    })
-                //    .catch()
-
-            }
-            catch (ex) { console.log(ex); }
-        }
-        else {
-            roleDataLoaded({ role: "Please log in" });
-        }
-
-    }, [accounts]);
-
-    const roleDataLoaded = (data) => {
-        setRole(data.role);
-    }
-
-
 
     let location = useLocation();
 
@@ -55,13 +25,9 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
         switch (location.pathname) {
             case "/loggedout":
             case "/notfound":
-                navigate("/")
-
+                navigate("/");
         }
     }
-
-
-
 
     const mainMenu = [
         { "name": "Dashboard", onClick: () => navigate('/dashboard'), secure: false },
@@ -241,12 +207,12 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
                     {endMenuWide()}
                 </ul>
 
-                <div title={role} className="text-center" >
+                <div className="text-center" >
 
                     {accounts.length > 0 ? (
                         <>
 
-                            <div><a className="userNameDisplay">{accounts[0].username}</a></div>
+                            <div style={{ "cursor": "pointer" }}><a className="userNameDisplay" onClick={() => navigate('/mydetails')}>{accounts[0].username}</a></div>
                             <div style={{ "cursor": "pointer" }}><a onClick={() => { handleLogout(); navigate('/loggedout'); } }>Log out</a></div>
                         </>
                     ) : (

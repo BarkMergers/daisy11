@@ -15,8 +15,8 @@ import LoggedOut from './screens/LoggedOut';
 import Input from './input/Input'
 import { createContext } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-
 import { POST, SafeFetch } from './helpers/fetch';
+import MyDetails from './screens/MyDetails';
 
 
 export const UserContext = createContext();
@@ -56,9 +56,6 @@ function App() {
                     ...loginRequest,
                     forceRefresh: true, // <-- important if cache might be stale
                 });
-
-
-                alert("You are in tenant " + getSubdomain());
 
                 await SafeFetch("api/StoreToken", POST({ Token: result.accessToken, Tenant: getSubdomain() }));
                 loginNavigationFunction();
@@ -121,6 +118,7 @@ function App() {
                                     <Route path="/dashboard" element={<Dashboard />}></Route>
                                     <Route path="/accounts" element={<Accounts />}></Route>
                                     <Route path="/admin" element={<Admin accounts={accounts} />}></Route>
+                                    <Route path="/mydetails" element={<MyDetails accounts={accounts} />}></Route>
                                     <Route path="/" element={<Home accounts={accounts} />}></Route>
                                     <Route path="*" element={<NotFound />}></Route>
                                 </Routes>

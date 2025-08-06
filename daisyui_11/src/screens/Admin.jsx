@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from 'react';
 import Input from './../input/Input';
 import Select from './../select/Select';
+import Label from './../label/Label';
 import Modal from './../modal/Modal';
 import { useContext } from "react";
 import { UserContext } from '../App'
@@ -9,59 +10,11 @@ import { POST, GET, SafeFetch, SafeFetchJson } from '../helpers/fetch';
 
 
 
-export default function Admin({ accounts }) {
-
-    // Access global functions
-    const globalData = useContext(UserContext);
-
-    // Store the record loaded from the server
-    const [data, setData] = useState({});
-
-    // Trigger the loading of the record when the component mounts
-    useEffect(() => {
-        if (accounts.length == 1)
-            getAgent();
-    }, [accounts]);
-
-
-    // Load from the server - an Async function
-    const getAgent = async () => {
-
-        const data = await SafeFetchJson(`api/GetAgent/${accounts[0].username}`, GET());
-
-        setData(data);
-
-        //const text = await response.text();
-        //const data = JSON.parse(text);
-
-
-    }
-
-    // Submit the record held in 'data' to the server
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        globalData.SetSpinnerVisible(true);
-
-        await SafeFetch('api/SaveAgent', POST(data))
-        .then(() => {
-            globalData.SetSpinnerVisible(false);
-            document.getElementById('my_save').showModal();
-        });
-    }
+export default function Admin() {
 
 
 
 
-    // Update the 'data' record held in the useState
-    const updateData = (field, value) => {
-        setData({ ...data, [field]: value });
-    }
-
-    const roleList = ["Admin", "Comms", "Dev", "Agent"];
-
-    // The form contains the onSubmit event, each Input component has a 'value' to populate it with the 
-    // starting value and an 'onChange' event to call the 'updateData()' function to update 'data'
 
     return (
         <>
@@ -69,22 +22,10 @@ export default function Admin({ accounts }) {
                 Save was succesful!
             </Modal>
 
-            <form onSubmit={handleSubmit} className="mx-auto my-10">
+            <form  className="mx-auto my-10">
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
-                    <span>{data?.tenant || ""}</span>
-
-                    <Input value={data?.firstname || ""} type="text" title="First Name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
-
-                    <Input value={data?.lastname || ""} type="text" title="Last Name" placeholder="Your last name" onChange={(e) => updateData('lastname', e.target.value)} />
-
-                    <Input value={data?.active || ""} type="checkbox" title="Active" onChange={(e) => updateData('active', e.target.checked)} />
-
-                    <Input value={data?.age || 0} type="number" title="Age" placeholder="How old are you" onChange={(e) => updateData('age', e.target.value)} />
-
-                    <Select value={data?.role || ""} type="text" title="Role" data={roleList} onChange={(e) => updateData('role', e.target.value)} />
-
-                    <button type="submit" className="btn btn-neutral mx-auto mt-4">Save</button>
+                    <Label>Set up some admin functions here</Label>
 
                 </fieldset>
             </form>
