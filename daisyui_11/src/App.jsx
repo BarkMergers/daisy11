@@ -92,7 +92,7 @@ function App() {
 
             eventProcessingIconTimeout = setTimeout(() => {
                 document.getElementById('eventProcessingIcon').showModal();
-            }, 333);
+            }, 750);
         }
 
         if (value) {

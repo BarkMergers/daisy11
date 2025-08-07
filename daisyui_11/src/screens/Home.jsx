@@ -14,8 +14,17 @@ export default function Home({ accounts }) {
                 </div>
                 :
                 <div className="m-auto text-center">
+
                     <div>
-                        You are now logged in! Hover over your username to see your role. New features will be added here shortly.
+                        You are now logged in
+                    </div>
+
+                    <div>
+                        Click on your name in top right to alter / create your user record.
+                    </div>
+
+                    <div>
+                        Select Account from the Order menu option to see a simple table loaded from MongoDB.
                     </div>
 
                     <div style={{ "paddingTop": "20px" }}>

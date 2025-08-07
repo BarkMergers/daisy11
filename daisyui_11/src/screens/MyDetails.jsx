@@ -29,9 +29,14 @@ export default function MyDetails({ accounts }) {
     // Load from the server - an Async function
     const getAgent = async () => {
 
+
+        globalData.SetSpinnerVisible(true);
+
         const data = await SafeFetchJson(`api/GetAgent/${accounts[0].username}`, GET());
 
         setData(data);
+
+        globalData.SetSpinnerVisible(false);
 
         //const text = await response.text();
         //const data = JSON.parse(text);
@@ -51,9 +56,6 @@ export default function MyDetails({ accounts }) {
             document.getElementById('my_save').showModal();
         });
     }
-
-
-
 
     // Update the 'data' record held in the useState
     const updateData = (field, value) => {
