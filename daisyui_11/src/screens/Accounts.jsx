@@ -6,6 +6,7 @@ import './Accounts.css';
 import { UserContext } from '../App'
 import { GET, SafeFetchJson } from '../helpers/fetch';
 import { useContext } from "react";
+import Table from './../table/Table';
 
 export default function Accounts() {
 
@@ -49,29 +50,49 @@ export default function Accounts() {
 
     return (
         <>
+
+
+
+
             <div style={{ flexGrow: "1", padding: "40px" }}>
-                <table className="accounts-table">
-                    <thead>
+
+                {data != null &&
+                    <Table data={data}>
                         <tr>
-                            <td>ID</td>
-                            <td>Firstname</td>
-                            <td>Lastname</td>
-                            <td>Age</td>
-                            <td>Active</td>
+                            <td className="w-1"></td>
+                            <td>Vehicle</td>
+                            <td>Increase Date</td>
+                            <td>Operator</td>
+                            <td>Description</td>
+                            <td>Fine Amount</td>
+                            <td>Status</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        data != null && data.map((accountItem) => <tr onClick={() => openDialog(accountItem)}>
-                            <td>{accountItem.id}</td>
-                            <td>{accountItem.firstname}</td>
-                            <td>{accountItem.lastname}</td>
-                            <td>{accountItem.age}</td>
-                            <td>{accountItem.active ? "Yes" : "No"}</td>
-                        </tr>)
-                        }
-                    </tbody>
-                </table>
+                    </Table>
+                }
+
+
+                {/*<table className="accounts-table">*/}
+                {/*    <thead>*/}
+                {/*        <tr>*/}
+                {/*            <td>ID</td>*/}
+                {/*            <td>Firstname</td>*/}
+                {/*            <td>Lastname</td>*/}
+                {/*            <td>Age</td>*/}
+                {/*            <td>Active</td>*/}
+                {/*        </tr>*/}
+                {/*    </thead>*/}
+                {/*    <tbody>*/}
+                {/*    {*/}
+                {/*        data != null && data.map((accountItem) => <tr onClick={() => openDialog(accountItem)}>*/}
+                {/*            <td>{accountItem.id}</td>*/}
+                {/*            <td>{accountItem.firstname}</td>*/}
+                {/*            <td>{accountItem.lastname}</td>*/}
+                {/*            <td>{accountItem.age}</td>*/}
+                {/*            <td>{accountItem.active ? "Yes" : "No"}</td>*/}
+                {/*        </tr>)*/}
+                {/*        }*/}
+                {/*    </tbody>*/}
+                {/*</table>*/}
             </div>
 
             <div style={{ padding: "40px", textAlign: "center" }}>

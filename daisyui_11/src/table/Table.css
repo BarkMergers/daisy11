@@ -1,0 +1,9 @@
+table {
+    width: 100%;
+    background: white;
+    color: black;
+    border-radius: 10px; 
+    overflow: hidden;
+    padding: 10px;
+}
+
