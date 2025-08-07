@@ -2,7 +2,6 @@
     color: #999
 }
 
-
     .stats-bar-item:not(:first-child) {
         border-left: 1px solid #ddd;
     }

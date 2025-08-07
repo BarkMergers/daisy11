@@ -30,21 +30,22 @@ export const SafeFetch = async function (url, data) {
         response = await fetch(URLROOT + url, data);
         if (!response.ok) {
             errorText = await response.text();
-            throw new Error(`HTTP ${response.status}: ${errorText}`);
+            throw new Error(`${response.status}: ${errorText}`);
         }
         return response;
     }
     catch (ex) {
         switch (response == null ? null : response.status) {
+
             case 406:
                 {
-                    alert(ex + ": " + url);
+                    alert(ex + ": at request '" + url + "'");
                     return null;
                 }
 
             default:
                 {
-                    alert(ex + ": " + url);
+                    alert(ex + ": at request '" + url + "'");
                     return null;
                 }
         }

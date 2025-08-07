@@ -1,15 +1,8 @@
-
-
 td {
     padding: 0.5rem;
     border: 1px solid #ddd;
 }
 
-
-
-
 .rowgroup-footer:not(:last-child) td {
     border-bottom: 2px solid #418fa0;
 }
-
-

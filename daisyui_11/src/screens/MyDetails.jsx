@@ -9,8 +9,6 @@ import Header from './../header/Header'
 
 import { POST, GET, SafeFetch, SafeFetchJson } from '../helpers/fetch';
 
-
-
 export default function MyDetails({ accounts }) {
 
     // Access global functions
@@ -25,11 +23,8 @@ export default function MyDetails({ accounts }) {
             getAgent();
     }, [accounts]);
 
-
     // Load from the server - an Async function
     const getAgent = async () => {
-
-
         globalData.SetSpinnerVisible(true);
 
         const data = await SafeFetchJson(`api/GetAgent/${accounts[0].username}`, GET());
@@ -37,11 +32,6 @@ export default function MyDetails({ accounts }) {
         setData(data);
 
         globalData.SetSpinnerVisible(false);
-
-        //const text = await response.text();
-        //const data = JSON.parse(text);
-
-
     }
 
     // Submit the record held in 'data' to the server
@@ -51,9 +41,13 @@ export default function MyDetails({ accounts }) {
         globalData.SetSpinnerVisible(true);
 
         await SafeFetch('api/SaveAgent', POST(data))
-        .then(() => {
-            globalData.SetSpinnerVisible(false);
-            document.getElementById('my_save').showModal();
+            .then((data) => {
+                globalData.SetSpinnerVisible(false);
+
+                if (data != null) {
+                    document.getElementById('my_save').showModal();
+                }
+            
         });
     }
 
