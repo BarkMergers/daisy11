@@ -1,0 +1,12 @@
+.stats-bar {
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+
+StatsBarItem {
+    border-left: 1px solid silver;
+
+
+}

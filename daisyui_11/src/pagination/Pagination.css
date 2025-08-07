@@ -1,15 +1,26 @@
 .paginationButton
  {
-    border: 1px solid silver;
-    padding: 2px 8px;
-    margin: 5px;
-    background: linear-gradient(#1a1a1aff, #0008);
     display: inline-block;
     transition: 0.3s;
     cursor: pointer;
     background-color: silver;
 }
 
-.paginationButton:hover {
-    background-color: white;
+
+    .paginationButton:not(first-child) {
+        border-right: 1px solid black;
+    }
+
+
+
+.paginationButton:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
+
+.paginationButton:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+

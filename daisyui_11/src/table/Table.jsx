@@ -3,11 +3,11 @@ import TableRow from './../tableRow/TableRow';
 import NumberPlate from './../numberPlate/NumberPlate';
 import Input from './../input/Input';
 
-const Table = ({ children, data }) => {
+const Table = ({ children, data, openDialog }) => {
 
     return (
 
-        <div className="p-2">
+        <div className="py-2">
             <table>
                 <thead>
                     {children }
@@ -29,7 +29,7 @@ const Table = ({ children, data }) => {
                                     <td>{item.firstname}</td>
                                     <td>{item.lastname}</td>                        
                                     <td>1</td>                        
-                                    <td>2</td>                        
+                                    <td>£2</td>                        
                                     <td>
 
                                         <div class="badge badge-info">Info</div>
@@ -50,7 +50,7 @@ const Table = ({ children, data }) => {
                                                 <button className="btn mx-1 h-auto min-h-0">Pay</button>
                                                 <button className="btn mx-1 h-auto min-h-0">Nominate</button>
                                                 <button className="btn mx-1 h-auto min-h-0">Appeal</button>
-                                                <button className="btn mx-1 h-auto min-h-0">View Fine</button>
+                                                <button className="btn mx-1 h-auto min-h-0" onClick={() => openDialog(item) }>View Fine</button>
                                             </span>
                                         </div>
                                     </td>

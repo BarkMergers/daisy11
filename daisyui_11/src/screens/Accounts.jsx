@@ -7,6 +7,9 @@ import { UserContext } from '../App'
 import { GET, SafeFetchJson } from '../helpers/fetch';
 import { useContext } from "react";
 import Table from './../table/Table';
+import StatsBar from '../statsBar/StatsBar';
+import StatsBarItem from '../statsBar/statsBarItem/StatsBarItem';
+
 
 export default function Accounts() {
 
@@ -44,7 +47,7 @@ export default function Accounts() {
     }
 
     const openDialog = (data) => {
-        setMessage(`This is the account for ${data.firstname} ${data.lastname}`);
+        setMessage(`This is the fine for ${data.firstname} ${data.lastname}: £2.00`);
         document.getElementById('my_modal_1').showModal();
     }
 
@@ -52,12 +55,22 @@ export default function Accounts() {
         <>
 
 
-
-
             <div style={{ flexGrow: "1", padding: "40px" }}>
 
+                <StatsBar>
+
+                    <StatsBarItem title="Pending" focused >10</StatsBarItem>
+                    <StatsBarItem title="Pay">4</StatsBarItem>
+                    <StatsBarItem title="Nominate">2</StatsBarItem>
+                    <StatsBarItem title="Appeal">3</StatsBarItem>
+
+                </StatsBar>
+
+
+
+
                 {data != null &&
-                    <Table data={data}>
+                    <Table data={data} openDialog={openDialog}>
                         <tr>
                             <td className="w-1"></td>
                             <td>Vehicle</td>
