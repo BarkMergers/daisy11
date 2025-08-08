@@ -25,7 +25,9 @@ function NavBar({ title, accounts, handleLogout, handleLogin }) {
         switch (location.pathname) {
             case "/loggedout":
             case "/notfound":
-                navigate("/");
+                {
+                    setTimeout(() => navigate("/"), 100);
+                }
         }
     }
 

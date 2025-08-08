@@ -7,7 +7,7 @@ const Table = ({ children, data, openDialog }) => {
 
     return (
 
-        <div className="py-2">
+        <div>
             <table>
                 <thead>
                     {children }
@@ -17,9 +17,9 @@ const Table = ({ children, data, openDialog }) => {
                 <tbody>
 
                     {
-                        data.map((item) => 
+                        data.map((item, i) => 
                             <>
-                                <TableRow>
+                                <TableRow key={i}>
                                     <td>
                                         <Input type="checkbox"></Input>
                                     </td>
@@ -32,13 +32,13 @@ const Table = ({ children, data, openDialog }) => {
                                     <td>£2</td>                        
                                     <td>
 
-                                        <div class="badge badge-info">Info</div>
+                                        <div className="badge badge-info">Info</div>
 
 
                                     </td>                        
                                 </TableRow>
 
-                                <tr className="rowgroup-footer">
+                                <tr key={i} className="rowgroup-footer">
                                     <td colspan={7}>
                                         <div className="flex">
                                             <span className="grow content-around">

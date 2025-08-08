@@ -1,8 +1,8 @@
 import './TableRow.css';
 
-const TableRow = ({ children }) => {
+const TableRow = ({ key, children }) => {
     return (
-        <tr>
+        <tr key={key + "_main"}>
             {children}
         </tr>
     );

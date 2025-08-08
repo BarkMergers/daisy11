@@ -9,6 +9,8 @@ import { useContext } from "react";
 import Table from './../table/Table';
 import StatsBar from '../statsBar/StatsBar';
 import StatsBarItem from '../statsBar/statsBarItem/StatsBarItem';
+import ActionBar from '../actionBar/ActionBar';
+import Tablefilter from '../tableFilter/Tablefilter';
 
 
 export default function Accounts() {
@@ -66,7 +68,9 @@ export default function Accounts() {
 
                 </StatsBar>
 
+                <ActionBar></ActionBar>
 
+                <Tablefilter></Tablefilter>
 
 
                 {data != null &&
