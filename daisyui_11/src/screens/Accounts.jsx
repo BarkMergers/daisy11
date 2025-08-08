@@ -9,8 +9,8 @@ import { useContext } from "react";
 import Table from './../table/Table';
 import StatsBar from '../statsBar/StatsBar';
 import StatsBarItem from '../statsBar/statsBarItem/StatsBarItem';
-import ActionBar from '../actionBar/ActionBar';
-import Tablefilter from '../tableFilter/Tablefilter';
+import ActionBar from './../actionBar/ActionBar';
+import Tablefilter from './../tableFilter/Tablefilter';
 
 
 export default function Accounts() {
