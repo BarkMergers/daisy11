@@ -30,7 +30,7 @@ const Table = ({ columnData, tableData, openDialog, setData }) => {
 
     useEffect(() => {
         const hasTrueStatus = tableData.some(x => x.recordIsSelected === true);
-        const hasFalseStatus = tableData.some(x => x.recordIsSelected === false);
+        const hasFalseStatus = tableData.some(x => x.recordIsSelected === false || x.recordIsSelected == null);
         if (hasTrueStatus && hasFalseStatus) {
             chkSelectAll.current.indeterminate = true;
         }
@@ -55,7 +55,7 @@ const Table = ({ columnData, tableData, openDialog, setData }) => {
                                 <input ref={chkSelectAll} className="h-5 w-5 align-middle" type="checkbox" onChange={selectAll}></input>
                             </td>
                             {
-                                columnData != null && columnData.map((item) => item.active && <td>{item.text}</td>)
+                                columnData != null && columnData.map((item, i) => item.active && <td key={"key" + i}>{item.text}</td>)
                             }
                         </tr>
 
@@ -69,68 +69,58 @@ const Table = ({ columnData, tableData, openDialog, setData }) => {
                     {
                         tableData.map((data, index) => {
 
-                            return <><tr key={index & "t"}>
+                            return <React.Fragment key={index}>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="itemSelector" onChange={(e) => selectOne(e, index)} checked={data.recordIsSelected} className="h-5 w-5 align-middle"></input>
+                                    </td>
+                                    {
+                                        columnData.map((column, i) => {
 
-                                <td>
-                                    <input type="checkbox" name="itemSelector" onChange={(e) => selectOne(e, index)} checked={data.recordIsSelected} className="h-5 w-5 align-middle"></input>
-                                </td>
+                                            if (!column.active) return;
 
-                                {
-                                    columnData.map((column) => {
+                                            switch (column.name) {
+                                                case "vehicle":
+                                                    {
+                                                        return <td key={i}><NumberPlate>{data.vehicle}</NumberPlate></td>
+                                                    }
 
-                                        if (!column.active) return;
+                                                case "fineamount":
+                                                    {
+                                                        return <td key={i}>£{data.fineamount}</td>
+                                                    }
 
-                                        switch (column.name) {
-                                            case "vehicle":
-                                                {
-                                                    return <td><NumberPlate>{data.vehicle}</NumberPlate></td>
-                                                }
+                                                case "increasedate":
+                                                    {
+                                                        return <td key={i}>{data.increasedate.replace("T", " ") }</td>
+                                                    }
 
-                                            case "fineamount":
-                                                {
-                                                    return <td>£{data.fineamount}</td>
-                                                }
+                                                default:
+                                                    {
+                                                        return <td key={i}>{data[column.name]}</td>
+                                                    }
+                                            }
+                                        })
+                                    }
+                                </tr>
 
-                                            case "increasedate":
-                                                {
-                                                    return <td>{data.increasedate.replace("T", " ") }</td>
-                                                }
-
-                                            default:
-                                                {
-                                                    return <td>{data[column.name]}</td>
-                                                }
-                                        }
-                                    })
-
-
-
-                                }
-                            </tr>
-
-
-
-                            <tr key={index} className="rowgroup-footer">
-                                    <td colspan={length}>
-                                    <div className="flex">
-                                        <span className="grow content-around">
-                                            <b>Rules</b>: Pay on behalf of customer
-                                        </span>
-                                        <span className="mx-1 grow text-right">
-
-                                            <button className="btn btn-info mx-1 h-auto min-h-0">Pay Now</button>
-                                            <button className="btn mx-1 h-auto min-h-0">Pay</button>
-                                            <button className="btn mx-1 h-auto min-h-0">Nominate</button>
-                                            <button className="btn mx-1 h-auto min-h-0">Appeal</button>
+                                <tr className="rowgroup-footer">
+                                        <td colSpan={length}>
+                                        <div className="flex">
+                                            <span className="grow content-around">
+                                                <b>Rules</b>: Pay on behalf of customer
+                                            </span>
+                                            <span className="mx-1 grow text-right">
+                                                <button className="btn btn-info mx-1 h-auto min-h-0">Pay Now</button>
+                                                <button className="btn mx-1 h-auto min-h-0">Pay</button>
+                                                <button className="btn mx-1 h-auto min-h-0">Nominate</button>
+                                                <button className="btn mx-1 h-auto min-h-0">Appeal</button>
                                                 <button className="btn mx-1 h-auto min-h-0" onClick={() => openDialog(data)}>View Fine</button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            </>
-
-
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </React.Fragment>
                         })
                     }
 

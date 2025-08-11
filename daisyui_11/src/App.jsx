@@ -152,7 +152,7 @@ function App() {
                 <Modal id="my_claim_rejected" title="Reject Claim" submit="save">
                         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
 
-                            <Input value={0} type="number" title="Claim ID" placeholder="Claim to reject"  />
+                        <Input value={0} type="number" title="Claim ID" onChange={(e) => alert(e.target.value) } placeholder="Claim to reject"  />
 
                             
 

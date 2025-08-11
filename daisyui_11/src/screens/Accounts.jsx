@@ -104,6 +104,29 @@ export default function Accounts() {
 
 
 
+    const teamList = ["Erikson", "On hold"];
+    const agentList = ["Bob", "Tim", "Sid"];
+
+    const moveToTask = (e) => {
+        const selectedCount = data.filter((item) => item.recordIsSelected).length;
+        e.target.selectedIndex = 0;
+        alert(selectedCount + " records moved");
+    }
+
+    const assignToTask = (e) => {
+        const selectedCount = data.filter((item) => item.recordIsSelected).length;
+        e.target.selectedIndex = 0;
+        alert(selectedCount + " records assigned");
+    }
+
+    const addFine = () => {
+        alert("Fine added")
+    }
+
+
+
+
+
 
 
     return (
@@ -124,7 +147,7 @@ export default function Accounts() {
 
                 </StatsBar>
 
-                <ActionBar></ActionBar>
+                <ActionBar teamList={teamList} agentList={agentList} moveToTask={moveToTask} assignToTask={assignToTask} addFine={addFine} ></ActionBar>
 
                 <TableFilter openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
 

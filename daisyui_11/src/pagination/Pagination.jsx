@@ -12,7 +12,7 @@ export default function Pagination({ data, updatePage }) {
 
                 const active = i == data.pageId ? { backgroundColor: "#ade8f3" } : {};
 
-                return (<span style={active} className="paginationButton px-5 py-1.5 text-black" onClick={() => updatePage(i)} >
+                return (<span key={ i } style={active} className="paginationButton px-5 py-1.5 text-black" onClick={() => updatePage(i)} >
                         {buttonId + 1}
                     </span>);
                 })
