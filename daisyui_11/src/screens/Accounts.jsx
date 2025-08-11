@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import Modal from './../modal/Modal'
 import { useQuery } from "@tanstack/react-query";
 import Pagination from './../pagination/Pagination';
@@ -11,7 +11,8 @@ import StatsBar from '../statsBar/StatsBar';
 import StatsBarItem from '../statsBar/statsBarItem/StatsBarItem';
 import ActionBar from './../actionBar/ActionBar';
 import Tablefilter from './../tableFilter/Tablefilter';
-
+import ColumnEditror from './../columEditor/ColumnEditor';
+import ColumnEditor from './../columEditor/ColumnEditor';
 
 export default function Accounts() {
 
@@ -22,25 +23,69 @@ export default function Accounts() {
     const pageSize = 3;
     const globalData = useContext(UserContext);
 
-     useQuery({
+
+
+
+
+    const [columnData, setColumnData] = useState(null);
+    useEffect(() => {
+        let initialColumnData;
+        try {
+            initialColumnData = JSON.parse(localStorage.getItem("liststructure_myaccounts"));
+            if (initialColumnData == 'null' || initialColumnData == null)
+                initialColumnData = resetList();
+        }
+        catch {
+            initialColumnData = resetList();
+        }
+        setColumnData(initialColumnData);
+    }, []); 
+    useEffect(() => {
+        if (columnData == null) {
+            localStorage.removeItem("liststructure_myaccounts");
+        }
+        else {
+            localStorage.setItem("liststructure_myaccounts", JSON.stringify(columnData));
+        }
+    }, [columnData])
+    const resetList = () => {
+        return [
+            { "active": true, "name": "id", "text": "ID" },
+            { "active": true, "name": "vehicle", "text": "Vehicle" },
+            { "active": true, "name": "fineoperator", "text": "Operator" },
+            { "active": false, "name": "fineamount", "text": "Fine Amount" },
+            { "active": true, "name": "increasedate", "text": "Increase Date" }
+        ]
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    useQuery({
         queryKey: ['customers', pageIndex],
         queryFn: () => getCustomer(pageIndex)
     });
 
     const getCustomer = async (newPageIndex) => {
-
         globalData.SetSpinnerVisible(true);
-
         newPageIndex = newPageIndex || 0;
-
         const data = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, GET());
-
         setPagination(data.pagination);
         setPageIndex(newPageIndex);
         setData(data.data);
-
         globalData.SetSpinnerVisible(false);
-
         return data;
     }
 
@@ -53,9 +98,18 @@ export default function Accounts() {
         document.getElementById('my_modal_1').showModal();
     }
 
+
+
+
+
+
+
     return (
         <>
 
+            <Modal id="my_modal_1" title="Account Details">{message}</Modal>
+
+            <ColumnEditor id="dialog_tableEditor" title="Editor" columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
             <div style={{ flexGrow: "1", padding: "40px" }}>
 
@@ -70,55 +124,21 @@ export default function Accounts() {
 
                 <ActionBar></ActionBar>
 
-                <Tablefilter></Tablefilter>
-
+                <Tablefilter openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></Tablefilter>
 
                 {data != null &&
-                    <Table data={data} openDialog={openDialog}>
-                        <tr>
-                            <td className="w-1"></td>
-                            <td>Vehicle</td>
-                            <td>Increase Date</td>
-                            <td>Operator</td>
-                            <td>Description</td>
-                            <td>Fine Amount</td>
-                            <td>Status</td>
-                        </tr>
-                    </Table>
+                    <Table columnData={columnData} tableData={data} openDialog={openDialog}></Table>
                 }
 
 
-                {/*<table className="accounts-table">*/}
-                {/*    <thead>*/}
-                {/*        <tr>*/}
-                {/*            <td>ID</td>*/}
-                {/*            <td>Firstname</td>*/}
-                {/*            <td>Lastname</td>*/}
-                {/*            <td>Age</td>*/}
-                {/*            <td>Active</td>*/}
-                {/*        </tr>*/}
-                {/*    </thead>*/}
-                {/*    <tbody>*/}
-                {/*    {*/}
-                {/*        data != null && data.map((accountItem) => <tr onClick={() => openDialog(accountItem)}>*/}
-                {/*            <td>{accountItem.id}</td>*/}
-                {/*            <td>{accountItem.firstname}</td>*/}
-                {/*            <td>{accountItem.lastname}</td>*/}
-                {/*            <td>{accountItem.age}</td>*/}
-                {/*            <td>{accountItem.active ? "Yes" : "No"}</td>*/}
-                {/*        </tr>)*/}
-                {/*        }*/}
-                {/*    </tbody>*/}
-                {/*</table>*/}
+
             </div>
 
             <div style={{ padding: "40px", textAlign: "center" }}>
                 <Pagination data={pagination} updatePage={updatePage}></Pagination>
             </div>
 
-            <Modal id="my_modal_1" title="Account Details">
-                {message}
-            </Modal>
+
         </>
     );
 }

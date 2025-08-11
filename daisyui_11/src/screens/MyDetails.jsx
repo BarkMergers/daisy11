@@ -77,7 +77,7 @@ export default function MyDetails({ accounts }) {
 
                         <Label title="Username">{data?.agent || ""}</Label>
 
-                        <div class="grid grid-cols-2 gap-8">
+                        <div className="grid grid-cols-2 gap-8">
                             <div>
 
                                 <Label title="Tenant">{data?.tenant || ""}</Label>

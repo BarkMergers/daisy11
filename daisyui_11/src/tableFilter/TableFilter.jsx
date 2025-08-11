@@ -2,7 +2,7 @@
 import Select from '../select/Select';
 import './TableFilter.css';
 
-export default function TableFilter () {
+export default function TableFilter({ openEditor }) {
     return (
 
         <div className="my-2 rounded-xl bg-white py-1">
@@ -16,7 +16,7 @@ export default function TableFilter () {
             <select className="select mx-1 h-8 min-h-0"><option>Operators</option></select>
             <select className="select mx-1 h-8 min-h-0"><option>Filters</option></select>
 
-            <button className="btn btn-info float-right mx-1 h-auto min-h-0">Manage Columns</button>
+            <button className="btn btn-info float-right mx-1 h-auto min-h-0" onClick={openEditor}>Manage Columns</button>
 
 
         </div>
