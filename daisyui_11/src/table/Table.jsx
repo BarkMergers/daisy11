@@ -1,7 +1,5 @@
 ﻿import './Table.css';
-import TableRow from './../tableRow/TableRow';
 import NumberPlate from './../numberPlate/NumberPlate';
-import Input from './../input/Input';
 import React, { useRef, useEffect } from 'react';
 
 const Table = ({ columnData, tableData, openDialog, setData }) => {

@@ -1,5 +1,6 @@
 ﻿import { useRef } from 'react'
 import { ReactSortable } from "react-sortablejs";
+import { FaGripVertical } from 'react-icons/fa'; // Font Awesome
 
 export default function ColumnEditor({ id, columnData, setColumnData, resetColumnData }) {
     const modalRef = useRef(null);
@@ -24,9 +25,10 @@ export default function ColumnEditor({ id, columnData, setColumnData, resetColum
                 { columnData != null && 
                     <ReactSortable list={columnData} setList={(list) => setColumnData(list)} >
                         {columnData.map((column, i) => (
-                            <div key={column.name} className="m-1 flex items-center rounded bg-gray-200 p-1 text-black">
+                            <div key={column.name} className="m-1 flex items-center rounded bg-gray-200 p-1 text-black hover:bg-blue-700">
                                 <input style={{ height: "20px", width: "20px" }} onChange={(e) => setColumnActive(i, e.target.checked)} name={"vis_" + column.name} checked={column.active} type="checkbox" />
-                                <span className="px-2">{column.text}</span>
+                                <span className="flex-grow px-2 text-left">{column.text}</span>
+                                <FaGripVertical style={{ cursor: "ns-resize"}} />
                             </div>
                         ))}
                     </ReactSortable>
