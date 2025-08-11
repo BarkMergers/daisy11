@@ -22,6 +22,22 @@ export default function Accounts() {
     const pageSize = 3;
     const globalData = useContext(UserContext);
 
+    const [filterData, setFilterData] = useState(null);
+
+
+    useQuery({
+        queryKey: ['filter', pageIndex],
+        queryFn: () => getCustomerFilter(pageIndex)
+    });
+    const getCustomerFilter = async () => {
+        const data = await SafeFetchJson(`api/GetCustomerFilter`, GET());
+        setFilterData(data);
+        return data;
+    }
+
+
+
+
 
 
 
@@ -149,7 +165,7 @@ export default function Accounts() {
 
                 <ActionBar teamList={teamList} agentList={agentList} moveToTask={moveToTask} assignToTask={assignToTask} addFine={addFine} ></ActionBar>
 
-                <TableFilter openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
+                <TableFilter filterData={filterData} openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
 
                 {data != null &&
                     <Table columnData={columnData} tableData={data} openDialog={openDialog} setData={setData}></Table>

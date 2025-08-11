@@ -98,6 +98,8 @@ const Table = ({ columnData, tableData, openDialog, setData }) => {
                                                         return <td key={i}>{data[column.name]}</td>
                                                     }
                                             }
+
+
                                         })
                                     }
                                 </tr>

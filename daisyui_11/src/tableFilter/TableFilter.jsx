@@ -2,7 +2,7 @@
 import Select from '../select/Select';
 import './TableFilter.css';
 
-export default function TableFilter({ openEditor }) {
+export default function TableFilter({ openEditor, filterData }) {
     return (
 
         <div className="my-2 rounded-xl bg-white py-1">
@@ -10,11 +10,21 @@ export default function TableFilter({ openEditor }) {
 
             <input className="input mx-1 h-8 min-h-0" placeholder="Search"></input>
 
-            <select className="select mx-1 h-8 min-h-0"><option>Status</option></select>
-            <select className="select mx-1 h-8 min-h-0"><option>Description</option></select>
-            <select className="select mx-1 h-8 min-h-0"><option>Issuer</option></select>
-            <select className="select mx-1 h-8 min-h-0"><option>Operators</option></select>
-            <select className="select mx-1 h-8 min-h-0"><option>Filters</option></select>
+            <select className="select mx-1 h-8 min-h-0"><option>Status</option>
+                {filterData?.statusList != null && filterData.statusList.map((i) => <option key={i}>{i}</option>)}
+            </select>
+
+            {/*<select className="select mx-1 h-8 min-h-0"><option>Description</option></select>*/}
+
+            <select className="select mx-1 h-8 min-h-0"><option>Issuer</option>
+                {filterData?.issuerList != null && filterData.issuerList.map((i) => <option key={i}>{i}</option>)}
+            </select>
+
+            <select className="select mx-1 h-8 min-h-0"><option>Operators</option>
+                {filterData?.operatorList != null && filterData.operatorList.map((i) => <option key={i}>{i}</option>)}
+            </select>
+
+            {/*<select className="select mx-1 h-8 min-h-0"><option>Filters</option></select>*/}
 
             <button className="btn btn-info float-right mx-1 h-auto min-h-0" onClick={openEditor}>Manage Columns</button>
 
