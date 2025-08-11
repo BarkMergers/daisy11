@@ -2,7 +2,7 @@
 import Select from '../select/Select';
 import './TableFilter.css';
 
-export default function TableFilter({ openEditor, filterData }) {
+export default function TableFilter({ openEditor, filterData, applyFilter }) {
     return (
 
         <div className="my-2 rounded-xl bg-white py-1">
@@ -10,17 +10,17 @@ export default function TableFilter({ openEditor, filterData }) {
 
             <input className="input mx-1 h-8 min-h-0" placeholder="Search"></input>
 
-            <select className="select mx-1 h-8 min-h-0"><option>Status</option>
+            <select onChange={(e) => applyFilter(e.target, "status")} className="select mx-1 h-8 min-h-0"><option value="">Status</option>
                 {filterData?.statusList != null && filterData.statusList.map((i) => <option key={i}>{i}</option>)}
             </select>
 
             {/*<select className="select mx-1 h-8 min-h-0"><option>Description</option></select>*/}
 
-            <select className="select mx-1 h-8 min-h-0"><option>Issuer</option>
+            <select onChange={(e) => applyFilter(e.target, "issuer")} className="select mx-1 h-8 min-h-0"><option value="">Issuer</option>
                 {filterData?.issuerList != null && filterData.issuerList.map((i) => <option key={i}>{i}</option>)}
             </select>
 
-            <select className="select mx-1 h-8 min-h-0"><option>Operators</option>
+            <select onChange={(e) => applyFilter(e.target, "fineoperator")} className="select mx-1 h-8 min-h-0"><option value="">Operators</option>
                 {filterData?.operatorList != null && filterData.operatorList.map((i) => <option key={i}>{i}</option>)}
             </select>
 

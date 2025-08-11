@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Pagination from './../pagination/Pagination';
 import './Accounts.css';
 import { UserContext } from '../App'
-import { GET, SafeFetchJson } from '../helpers/fetch';
+import { GET, POST, SafeFetchJson } from '../helpers/fetch';
 import { useContext } from "react";
 import Table from './../table/Table';
 import StatsBar from '../statsBar/StatsBar';
@@ -21,7 +21,7 @@ export default function Accounts() {
     const [message, setMessage] = useState("");
     const pageSize = 3;
     const globalData = useContext(UserContext);
-
+    const [filterValues, setFilterValues] = useState({});
     const [filterData, setFilterData] = useState(null);
 
 
@@ -73,6 +73,7 @@ export default function Accounts() {
             { "active": false, "name": "age", "text": "Age" },
             { "active": false, "name": "power", "text": "Power" },
             { "active": false, "name": "status", "text": "Status" },
+            { "active": false, "name": "issuer", "text": "Issuer" },
         ]
     }
 
@@ -91,7 +92,7 @@ export default function Accounts() {
 
 
 
-    useQuery({
+    const { refetch: reloadData } = useQuery({
         queryKey: ['customers', pageIndex],
         queryFn: () => getCustomer(pageIndex)
     });
@@ -99,7 +100,7 @@ export default function Accounts() {
     const getCustomer = async (newPageIndex) => {
         globalData.SetSpinnerVisible(true);
         newPageIndex = newPageIndex || 0;
-        const data = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, GET());
+        const data = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST(filterValues));
         setPagination(data.pagination);
         setPageIndex(newPageIndex);
         setData(data.data);
@@ -142,6 +143,19 @@ export default function Accounts() {
 
 
 
+    useEffect(() => {
+        reloadData();
+    }, [filterValues])
+
+    const applyFilter = (control, name) => {
+        setFilterValues({ ...filterValues, [name]: control.value });
+    }
+
+
+
+
+
+
 
 
 
@@ -165,14 +179,11 @@ export default function Accounts() {
 
                 <ActionBar teamList={teamList} agentList={agentList} moveToTask={moveToTask} assignToTask={assignToTask} addFine={addFine} ></ActionBar>
 
-                <TableFilter filterData={filterData} openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
+                <TableFilter applyFilter={applyFilter} filterData={filterData} openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
 
                 {data != null &&
                     <Table columnData={columnData} tableData={data} openDialog={openDialog} setData={setData}></Table>
                 }
-
-
-
             </div>
 
             <div style={{ padding: "40px", textAlign: "center" }}>
