@@ -2,15 +2,44 @@
 import TableRow from './../tableRow/TableRow';
 import NumberPlate from './../numberPlate/NumberPlate';
 import Input from './../input/Input';
+import React, { useRef, useEffect } from 'react';
 
-const Table = ({ columnData, tableData, openDialog }) => {
+const Table = ({ columnData, tableData, openDialog, setData }) => {
 
     const length = columnData == null ? 0 : columnData.filter(function (item) { return item.active; }).length + 1;
+    const chkSelectAll = useRef(null);
 
-    const selectAll = (value) => {
-        tableData.forEach((i) => i.recordIsSelected = value);
+
+    const selectAll = (e) => {
+        setData(prevItems =>
+            prevItems.map(item => ({
+                ...item,
+                recordIsSelected: e.target.checked,
+            }))
+        );
     }
 
+    const selectOne = (e, index) => {
+        setData(prevItems =>
+            prevItems.map((item, i) => ( i == index ? { ...item, recordIsSelected: e.target.checked }: item))
+        );
+
+
+
+    }
+
+    useEffect(() => {
+        const hasTrueStatus = tableData.some(x => x.recordIsSelected === true);
+        const hasFalseStatus = tableData.some(x => x.recordIsSelected === false);
+        if (hasTrueStatus && hasFalseStatus) {
+            chkSelectAll.current.indeterminate = true;
+        }
+        else {
+            chkSelectAll.current.checked = hasTrueStatus ? true : false;
+            chkSelectAll.current.indeterminate = false;
+
+        }
+    }, [tableData])
 
 
 
@@ -23,9 +52,8 @@ const Table = ({ columnData, tableData, openDialog }) => {
                     {
                         <tr>
                             <td className="w-1">
-                                <input className="h-5 w-5 align-middle" type="checkbox" onChange={(e) => selectAll(e.target.checked) }></input>
+                                <input ref={chkSelectAll} className="h-5 w-5 align-middle" type="checkbox" onChange={selectAll}></input>
                             </td>
-
                             {
                                 columnData != null && columnData.map((item) => item.active && <td>{item.text}</td>)
                             }
@@ -44,7 +72,7 @@ const Table = ({ columnData, tableData, openDialog }) => {
                             return <><tr key={index & "t"}>
 
                                 <td>
-                                    <input type="checkbox" name="itemSelector" checked={data.recordIsSelected} className="h-5 w-5 align-middle"></input>
+                                    <input type="checkbox" name="itemSelector" onChange={(e) => selectOne(e, index)} checked={data.recordIsSelected} className="h-5 w-5 align-middle"></input>
                                 </td>
 
                                 {

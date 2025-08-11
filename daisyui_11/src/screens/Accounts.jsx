@@ -52,8 +52,11 @@ export default function Accounts() {
             { "active": true, "name": "id", "text": "ID" },
             { "active": true, "name": "vehicle", "text": "Vehicle" },
             { "active": true, "name": "fineoperator", "text": "Operator" },
+            { "active": true, "name": "increasedate", "text": "Increase Date" },
             { "active": false, "name": "fineamount", "text": "Fine Amount" },
-            { "active": true, "name": "increasedate", "text": "Increase Date" }
+            { "active": false, "name": "age", "text": "Age" },
+            { "active": false, "name": "power", "text": "Power" },
+            { "active": false, "name": "status", "text": "Status" },
         ]
     }
 
@@ -126,7 +129,7 @@ export default function Accounts() {
                 <TableFilter openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
 
                 {data != null &&
-                    <Table columnData={columnData} tableData={data} openDialog={openDialog}></Table>
+                    <Table columnData={columnData} tableData={data} openDialog={openDialog} setData={setData}></Table>
                 }
 
 
