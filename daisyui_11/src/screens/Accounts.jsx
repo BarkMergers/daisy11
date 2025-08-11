@@ -10,8 +10,7 @@ import Table from './../table/Table';
 import StatsBar from '../statsBar/StatsBar';
 import StatsBarItem from '../statsBar/statsBarItem/StatsBarItem';
 import ActionBar from './../actionBar/ActionBar';
-import Tablefilter from './../tableFilter/Tablefilter';
-import ColumnEditror from './../columEditor/ColumnEditor';
+import TableFilter from './../tableFilter/TableFilter';
 import ColumnEditor from './../columEditor/ColumnEditor';
 
 export default function Accounts() {
@@ -124,7 +123,7 @@ export default function Accounts() {
 
                 <ActionBar></ActionBar>
 
-                <Tablefilter openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></Tablefilter>
+                <TableFilter openEditor={() => document.getElementById('dialog_tableEditor').showModal() }></TableFilter>
 
                 {data != null &&
                     <Table columnData={columnData} tableData={data} openDialog={openDialog}></Table>
